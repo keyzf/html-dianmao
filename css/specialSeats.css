@@ -1,0 +1,12 @@
+.marquee-tips{text-align:left;width:100%;margin:0 auto;overflow:hidden;
+white-space:nowrap;
+-webkit-box-sizing:border-box;
+box-sizing:border-box
+}
+
+.home[data-v-70efac72] {
+    width: 100%;
+    text-align: center;
+    font-size: 60px;
+    color: red
+}

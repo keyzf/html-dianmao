@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/chunk.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/searchPage.css">
+    <link rel="stylesheet" href="./css/element.css">
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/element.js"></script>
+    <title>首页</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="headerBox">
+                <div class="headerLogo">
+                    <img src="./img/logo.png" alt />
+                </div>
+                <div class="headerNavBox">
+                    <ul class="qfNavListBox">
+                        <li> <a href="./index.html" class="navList ">首页</a> </li>
+                        <li> <a href="./information.html" class="navList active">信息汇总</a> </li>
+                        <li> <a href="./release.html" class="navList">我要发布</a> </li>
+                        <li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
+                    </ul>
+                </div>
+                <div class="headerSearchBox">
+                    <p>
+                        <span>欢迎您：</span>
+                        <span>andy</span>
+                    </p>
+                    <div class="inputBox">
+                        <el-input placeholder="输入关键字" v-model="searchContent">
+                            <el-button slot="append" style="color:#909399" @click="goSearch()">搜索</el-button>
+                        </el-input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 内容 -->
+        <div class="serchPage">
+            <div class="serchPageBox">
+                <p class="title">"{{listData.title}}"搜索结果</p>
+                <div class="contentBox">
+                    <ul class="notiveContentBox">
+                        <li class="noticeContentList" v-for="item in notiveList" :key="item.id">
+                            <div class="picBox">
+                                <img :src="item.url" alt />
+                            </div>
+                            <div class="textBox">
+                                <p>
+                                    <span v-html="item.title">
+                                        <a style="cursor: pointer;">查看详情</a>
+                                    </span>
+                                </p>
+                                <div class="operationBox">
+                                    <div class="operationLeft">
+                                        <div class="buttonBox" v-show="item.button1">置顶</div>
+                                        <div class="buttonBox" v-show="item.button2">造价涉及</div>
+                                    </div>
+                                    <div class="operationright">
+                                        <span style="padding-right: 20px;" v-html="item.date"></span>
+                                        <i class="iconfont">&#xe67b;</i>
+                                        <span style="padding-right: 20px;">{{item.num1}}</span>
+                                        <i class="el-icon-s-comment"></i>
+                                        <span>{{item.num2}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="paginationBox">
+                        <el-pagination @current-change="handleCurrentChange" background
+                            :current-page.sync="listData.pageCurrent" :page-size="listData.pageSize"
+                            layout="prev, pager, next, jumper" :total="pageTotal"></el-pagination>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footerTop">
+                <span>联系我们</span>
+                <span>法律援助</span>
+            </div>
+            <div class="footetButtom">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State Grid Corporation of
+                China（SGCC）.All rights reserved</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    searchContent: '',
+                    //请求信息
+                    listData: {
+                        title: '',
+                        pageSize: 4,
+                        pageCurrent: 1
+                    },
+                    pageTotal: 10,
+                    notiveList: [],
+                    notiveLists: [
+                        {
+                            id: 1,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 2,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: true,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 3,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 4,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 10,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 5,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 6,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 7,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 8,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 9,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        },
+                    ]
+
+                }
+            },
+
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+                this.listData.title = this.getQueryVariable('id')
+                this.notiveList = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.notiveLists)
+
+            },
+            methods: {
+                goSearch() {
+                    if (this.searchContent) {
+                        window.location.href = `searchPage.html?id=${this.searchContent}`;
+                    } else {
+                        this.$message.error('请输入所要搜索的信息！');
+                    }
+
+                },
+                pagination(pageNo, pageSize, array) {
+                    var offset = (pageNo - 1) * pageSize;
+                    return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+                },
+
+                //切换页
+                handleCurrentChange(val) {
+                    this.notiveList = this.pagination(val, this.listData.pageSize, this.notiveLists)
+                },
+                getQueryVariable(variable) {
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) { return pair[1]; }
+                    }
+                    return (false);
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

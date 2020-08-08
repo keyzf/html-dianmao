@@ -1,0 +1,138 @@
+.serchPage {
+    width: 100%
+}
+.serchPageBox{
+    width: 1000px;
+    margin: 0 auto;
+}
+.serchPage .serchPageBox .title {
+    padding: 18px;
+    font-size: 12px;
+    color: #000
+}
+
+.serchPage .serchPageBox .contentBox {
+    padding: 20px 50px;
+    width: calc(100% - 100px);
+    height: auto;
+    background-image: url(../img/contentBeijing.png);
+    background-size: 100% 100%
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox {
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/contentBeijing.png)
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList {
+    width: 100%;
+    height: 80px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 30px
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .picBox {
+    width: 92px;
+    height: 80px;
+    border-radius: 8px;
+    float: left
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .picBox img {
+    width: 100%;
+    height: 100%
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox {
+    height: 80px;
+    float: right;
+    margin-left: 13px;
+    width: calc(100% - 105px);
+    position: relative
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox p {
+    font-size: 11px;
+    color: #000;
+    line-height: 18px
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox p span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    cursor: pointer
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox p span:hover {
+    font-weight: 550
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox .operationBox {
+    width: 100%;
+    height: 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationLeft .buttonBox {
+    float: left;
+    width: 65px;
+    height: 24px;
+    font-size: 8px;
+    background-color: #237b63;
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    margin-right: 12px;
+    border-radius: 3px;
+    cursor: pointer
+}
+
+.serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright {
+    color: #666;
+    font-size: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+   }
+
+   .serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright span {
+       padding: 0 5px;
+       font-size: 8px
+   }
+
+   .serchPage .serchPageBox .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright i {
+       font-size: 13px;
+       color: #237b63
+   }
+
+   .serchPage .serchPageBox .paginationBox {
+      
+    height: 40px;
+   }
+
+   .serchPage .serchPageBox .paginationBox .el-pagination {
+       float: right
+   }
+
+   .serchPage .serchPageBox .paginationBox .active {
+       background-color: #237b63 !important
+   }

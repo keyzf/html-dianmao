@@ -1,0 +1,203 @@
+.information {
+    width: 100%
+}
+.informationBox{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.information .title {
+    padding: 18px;
+    font-size: 12px;
+    color: #000
+}
+
+.information .notiveTabBox {
+    width: 100%;
+    height: 36px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 10px 0
+}
+
+.information .notiveTabBox .noticeNav {
+    width: 106px;
+    height: 36px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 6px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#e7eae9), color-stop(#e7eae9), color-stop(#cddbd8), to(#cddbd8));
+    background: linear-gradient(180deg, #e7eae9, #e7eae9, #cddbd8, #cddbd8);
+    border-radius: 5px
+}
+
+.information .notiveTabBox .noticeNav:hover,
+.information .notiveTabBox .noticeNavActive {
+    color: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#47afa1), to(#196d53));
+    background: linear-gradient(180deg, #47afa1, #196d53)
+}
+
+.information .contentBox {
+    padding: 20px 50px;
+    width: calc(100% - 100px);
+    height: auto;
+    background-image: url(../img/contentBeijing.png);
+    background-size: 100% 100%
+}
+
+.information .contentBox .notiveContentBox {
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/contentBeijing.png)
+}
+
+.information .contentBox .notiveContentBox .noticeContentList {
+    width: 100%;
+    height: 80px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 30px
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .p1 {
+    width: 70%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 60px;
+    cursor: pointer
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .p1:hover {
+    font-weight: 550
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .p2 {
+    width: 20%;
+    float: right;
+    line-height: 60px;
+    text-align: right
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .picBox {
+    width: 92px;
+    height: 80px;
+    border-radius: 8px;
+    float: left
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .picBox img {
+    width: 100%;
+    height: 100%
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox {
+    height: 80px;
+    float: right;
+    margin-left: 13px;
+    width: calc(100% - 105px);
+    position: relative
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox p {
+    font-size: 11px;
+    color: #000;
+    line-height: 18px
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox p span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    cursor: pointer
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox p span:hover {
+    font-weight: 550
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox .operationBox {
+    width: 100%;
+    height: 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationLeft .buttonBox {
+    float: left;
+    width: 65px;
+    height: 24px;
+    font-size: 8px;
+    background-color: #237b63;
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    margin-right: 12px;
+    border-radius: 3px;
+    cursor: pointer
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright {
+    color: #666;
+    font-size: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright span {
+    padding: 0 5px;
+    font-size: 8px
+}
+
+.information .contentBox .notiveContentBox .noticeContentList .textBox .operationBox .operationright i {
+    font-size: 13px;
+    color: #237b63
+}
+
+.information .paginationBox {
+    height: 40px;
+}
+
+.information .paginationBox .el-pagination {
+    float: right
+}
+
+.information .paginationBox .active {
+    background-color: #237b63 !important
+}

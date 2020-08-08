@@ -1,0 +1,121 @@
+.marquee-tips {
+    text-align: left;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.release{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.release .releaseBox{
+    width: 900px;
+    padding: 34px 50px;
+    height: 480px;
+    background-image: url(../img/contentBeijing.png);
+    background-size: 100% 100%
+}
+
+.release .releaseBox .pTitle{
+    font-size: 18px;
+    color: #3f3f3f
+}
+
+.release .typeBox{
+    width: 680px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 20px
+}
+
+.release .typeBox .typeList{
+    width: 106px;
+    margin-right: 29px;
+    cursor: pointer
+}
+
+.release .typeBox .typeList .top{
+    width: 106px;
+    height: 101px;
+    text-align: center;
+    line-height: 101px;
+    font-size: 34px;
+    color: #237b63;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ebebeb
+}
+
+.release .typeBox .typeList .top .iconfont{
+    font-size: 34px
+}
+
+.release .typeBox .typeList .topActive{
+    width: 106px;
+    height: 101px;
+    text-align: center;
+    line-height: 101px;
+    font-size: 34px;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #237b63
+}
+
+.release .typeBox .typeList .topActive .iconfont{
+    font-size: 34px
+}
+
+.release .typeBox .typeList .pContent{
+    line-height: 30px;
+    text-align: center;
+    padding: 13px 0;
+    color: #3f3f3f
+}
+
+.release .typeBox .typeList .pContentActive{
+    line-height: 30px;
+    text-align: center;
+    padding: 13px 0;
+    color: #237b63
+}
+
+.release .typeBox .typeList:hover .top{
+    color: #fff;
+    background-color: #237b63
+}
+
+.release .typeBox .typeList:hover .pContent{
+    color: #237b63
+}
+
+.release .buttonBox{
+    width: 100%;
+    height: 48px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center
+}
+
+.release .buttonBox .button{
+    width: 212px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    background-color: #237b63;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 4px;
+    margin-top: 30px;
+    cursor: pointer
+}

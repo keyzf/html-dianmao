@@ -39,18 +39,8 @@
                     </ul>
                 </div>
                 <div class="headerSearchBox">
-                    <p>
-                        <span>欢迎您：</span>
-                        <span>andy</span>
-                    </p>
-                    <div class="inputBox">
-                        <el-input placeholder="输入关键字" v-model="searchContent">
-                            <el-button slot="append" style="color:#909399" @click="goSearch()">搜索</el-button>
-                        </el-input>
-                    </div>
-                    <!-- <div class="buttonBox">
-                      搜索
-                  </div>-->
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html"
+                        frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -72,7 +62,7 @@
                         <div class="noticeRight">
                             <ul class="marqueBox">
                                 <div class='marquee' data-duration='15000' data-gap='10' data-duplicated='true'>
-                                   <span v-html="noticeText"></span>
+                                    <span v-html="noticeText"></span>
                                 </div>
                             </ul>
                         </div>
@@ -298,7 +288,7 @@
             components: {
             },
             mounted() {
-                this.notives.forEach(val=>{
+                this.notives.forEach(val => {
                     this.noticeText += val.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 })
                 console.log(this.noticeText)

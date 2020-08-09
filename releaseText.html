@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./css/releaseText.css">
     <link rel="stylesheet" href="./css/element.css">
     <script src="./js/vue.min.js"></script>
-    <script src="./js/vue.min.js"></script>
     <script src="./js/element.js"></script>
     <title>发布消息</title>
 </head>
@@ -24,14 +23,15 @@
                 </div>
                 <div class="headerNavBox">
                     <ul class="qfNavListBox">
-                        <li> <a href="./index.html" class="navList active ">首页</a> </li>
+                        <li> <a href="./index.html" class="navList  ">首页</a> </li>
                         <li> <a href="./information.html" class="navList ">信息汇总</a> </li>
-                        <li> <a href="./release.html" class="navList">我要发布</a> </li>
+                        <li> <a href="./release.html" class="navList active">我要发布</a> </li>
                         <li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
                     </ul>
                 </div>
                 <div class="headerSearchBox">
-                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html" frameborder="0"></iframe>
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html"
+                        frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -49,13 +49,15 @@
                     </div>
                     <p class="pTitle">添加视频或图片</p>
                     <div class="typeBox1">
-                        <el-upload action="上传地址" :data="uploadData" list-type="picture-card">
+                        <el-upload action="" list-type="picture-card" :on-change="beforeUpload" :auto-upload="false"
+                            :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                             <i class="el-icon-plus"></i>
                         </el-upload>
                         <el-dialog :visible.sync="dialogVisible">
-                            <img width="100%" :src="dialogImageUrl" alt="">
+                            <img width="100%" :src="dialogImageUrl" alt="" v-if="fileTypeStatus">
+                            <video :src="dialogImageUrl" controls="controls" v-else style="width: 100%;height: 100%;"
+                                v-else></video>
                         </el-dialog>
-                        </el-input>
                     </div>
                     <el-form-item label="联系人" style="margin-top: 30px;">
                         <el-input v-model="releaseInfo.name"></el-input>
@@ -88,17 +90,19 @@
             el: '#app',
             data() {
                 return {
-                    searchContent: '',
                     releaseInfo: {
-
+                        files: [],
+                        content: '',
+                        name: '',
+                        phone: '',
+                        dizhi: '',
+                        type: ''
                     },
                     rules: {},
                     uploadData: {},
-                    listData: {
-                        id: ''
-                    },
-                    dialogVisible:false,
-                    dialogImageUrl:[]
+                    dialogImageUrl: '',
+                    dialogVisible: false,
+                    fileTypeStatus: true,
                 }
             },
 
@@ -107,18 +111,10 @@
             components: {
             },
             mounted() {
-                this.listData.id = this.getQueryVariable('type')
+                this.releaseInfo.type = this.getQueryVariable('type')
 
             },
             methods: {
-                goSearch() {
-                    if (this.searchContent) {
-                        window.location.href = `searchPage.html?id=${this.searchContent}`;
-                    } else {
-                        this.$message.error('请输入所要搜索的信息！');
-                    }
-
-                },
                 getQueryVariable(variable) {
                     var query = window.location.search.substring(1);
                     var vars = query.split("&");
@@ -129,8 +125,53 @@
                     return (false);
                 },
                 submitDataFn() {
-                    console.log('数据提交')
-                }
+                    console.log(this.releaseInfo)
+                    this.$message.success('提交成功');   //请求接口成功
+                },
+                //删除上传内容
+                handleRemove(files, fileList) {
+                    var _this = this
+                    const fd = new FormData();
+                    this.releaseInfo.files = this.remove(this.releaseInfo.files, files.uid)
+                },
+                //删除图片组
+                remove(arr, item) {
+                    //定义一个空数组
+                    var newarr = [];
+                    for (var i = 0; i < arr.length; i++) {
+                        // 判断原数组的元素不等于指定元素
+                        console.log(parseInt(arr[i].get('uid')))
+                        console.log(item)
+                        if (arr[i].get('uid') != item) {
+                            // 把元素添加到新的数组
+                            newarr.push(arr[i]);
+                        }
+                    }
+                    // 返回新数组
+                    return newarr;
+                },
+                //上传内容
+                beforeUpload(file) {
+                    const fd = new FormData();
+                    fd.append("file", file.raw);
+                    fd.append("name", file.name);
+                    fd.append("uid", file.uid);
+                    this.releaseInfo.files.push(fd)
+                },
+                //预览上传内容
+                handlePictureCardPreview(file) {
+                    var _this = this
+                    if (file.name.includes('mp4')) {
+                        _this.fileTypeStatus = false
+                        _this.uploadTypeStatus = false
+                    } else {
+                        _this.fileTypeStatus = true
+                        _this.uploadTypeStatus = true
+                    }
+                    this.dialogImageUrl = file.url;
+                    this.dialogVisible = true;
+                },
+
             }
 
         })

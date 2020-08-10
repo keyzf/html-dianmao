@@ -73,7 +73,7 @@
                                     <img :src="item.url" alt />
                                 </div>
                                 <div class="textBox">
-                                    <p>
+                                    <p @click="goInfoDetails(item)">
                                         <span v-html="item.title">
                                             <a style="cursor: pointer;">查看详情</a>
                                         </span>
@@ -308,6 +308,10 @@
                 goNotiveDetails(val) {
                     window.open(`notiveDetails.html?id=${val.id}`, '_blank');
                 },
+				//信息详情
+				goInfoDetails(item){
+					 window.open(`infoDetails.html?id=${item.id}&type=1`, '_blank');
+				},
                 //公司介绍
                 goCompanyIntroduceFn() {
                     window.location.href = `companyIntroduce.html`;

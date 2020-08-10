@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/browser.min.js"></script>
+    <script src="./js/polyfill.min.js"></script>
+    <link rel="stylesheet" href="./css/chunk.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/infoDetails.css">
+    <link rel="stylesheet" href="./css/element.css">
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/element.js"></script>
+    <title>信息详情</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="headerBox">
+                <div class="headerLogo">
+                    <img src="./img/logo.png" alt />
+                </div>
+                <div class="headerNavBox">
+                    <ul class="qfNavListBox">
+                        <li> <a href="./index.html" class="navList  " :class="{active:tabType == 1}">首页</a> </li>
+                        <li> <a href="./information.html" class="navList " :class="{active:tabType != 1}">信息汇总</a> </li>
+                        <li> <a href="./release.html" class="navList">我要发布</a> </li>
+                        <li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
+                    </ul>
+                </div>
+                <div class="headerSearchBox">
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html"
+                        frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- 内容 -->
+        <div class="infoDetails">
+            <div class="breadcrumbBox">
+                <span @click="goPage()">{{breadcrumbName}}</span> 》<span>信息详情</span>
+            </div>
+            <div class="infoContent">
+                <p class="infoP1" v-html="notiveInfo.title"></p>
+                <div class="operationBox">
+                    <div class="operationLeft">
+                        <div class="buttonBox" v-show="notiveInfo.button1">置顶</div>
+                        <div class="buttonBox" v-show="notiveInfo.button2">造价涉及</div>
+                    </div>
+                    <div class="operationright">
+                        <span style="padding-right: 20px;" v-html="notiveInfo.date"></span>
+                        <i class="iconfont">&#xe67b;</i>
+                        <span style="padding-right: 20px;">{{notiveInfo.num1}}</span>
+                        <i class="el-icon-s-comment"></i>
+                        <span>{{notiveInfo.num2}}</span>
+                    </div>
+                </div>
+                <div class="commentBox">
+                    <div class="commentBoxLeft">
+                        <ul class="picBox">
+                            <li class="picList" v-for="(pic , index) in notiveInfo.pics" :key="index">
+                                <video :src="pic" controls="controls" v-if="pic.includes('mp4')"
+                                    style="width: 100%;height: 100%;"></video>
+                                <img :src="pic" alt="" v-else>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="commentBoxRight">
+                        <div>
+                            <div class="infoLeft">
+                                <img :src="infos.url" style="width: 100%;height: 100%;" alt="">
+                            </div>
+                            <div class="infoRight">
+                                <p>{{infos.name}}</p>
+                                <p><span>电话：</span> {{infos.phone}}</p>
+                                <p>{{infos.text}}</p>
+                                <p><span>地址：</span>{{infos.dizhi}}</p>
+                            </div>
+
+                        </div>
+                        <div class="buttonBox">电话联系</div>
+                    </div>
+
+                </div>
+                <p style="padding:18px 0;font-size:18px;font-weight: 600;position: relative;">评论 <span
+                        style="font-size: 8px;line-height: 10px;display: inline-block;position: absolute;">{{comment.number}}</span>
+                </p>
+                <div style="padding:16px;width:572px;background:#fff; box-shadow:0px 0px 11px 0px rgba(236,236,236,1);">
+                    <div>
+                        <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 6}" placeholder="请输入内容"
+                            v-model="comment.content">
+                        </el-input>
+                    </div>
+                    <div style="padding:16px;width:572px">
+                        <div
+                            style="width:89px;
+                        height:25px;
+                        background:rgba(35,123,99,1);
+                        border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
+                            发送评论</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerTop">
+                <span>联系我们</span>
+                <span>法律援助</span>
+            </div>
+            <div class="footetButtom">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State Grid Corporation
+                of
+                China（SGCC）.All rights reserved</div>
+        </div>
+    </div>
+    <script type="text/babel">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    searchContent: '',
+                    listData: {
+                        id: ''
+                    },
+                    tabType: '',
+                    breadcrumbName: '',
+                    notiveInfo: {
+                        id: 4,
+                        pics: [
+                            './img/1.png',
+                            './img/banner1.jpg',
+                            './img/1.png',
+                            './img/ship.mp4'
+                        ],
+                        title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                        button1: false,
+                        button2: true,
+                        date: '2020-07-26 09:32:56',
+                        num1: 2654,
+                        num2: 3456,
+                    },
+                    infos: {
+                        name: '王先生',
+                        url: './img/1.png',
+                        phone: '155****3454',
+                        text: '联系时请说在电猫网信息平台上看到的！',
+                        dizhi: '上海市长宁区富力大厦123号',
+                    },
+                    comment: {
+                        content: '',
+                        number:106
+                    }
+                }
+            },
+
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+                this.listData.id = this.getQueryVariable('id')
+                this.tabType = this.getQueryVariable('type')
+                if (this.tabType == 1) {
+                    this.breadcrumbName = '首页'
+                } else {
+                    this.breadcrumbName = '信息汇总'
+                }
+            },
+            methods: {
+                //跳转页面
+                goPage() {
+                    if (this.tabType == 1) {
+                        window.location.href = 'index.html'
+                    } else {
+                        window.location.href = 'information.html'
+                    }
+                },
+                //获取url参数
+                getQueryVariable(variable) {
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) { return pair[1]; }
+                    }
+                    return (false);
+                },
+            }
+
+        })
+    </script>
+</body>
+
+</html>

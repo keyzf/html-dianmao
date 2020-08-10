@@ -41,7 +41,7 @@
     -ms-flex-pack: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 6px;
+    font-size: 12px;
     background: -webkit-gradient(linear, left top, left bottom, from(#e7eae9), color-stop(#e7eae9), color-stop(#cddbd8), to(#cddbd8));
     background: linear-gradient(180deg, #e7eae9, #e7eae9, #cddbd8, #cddbd8);
     border-radius: 5px

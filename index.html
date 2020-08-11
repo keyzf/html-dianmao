@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-	<script src="./js/browser.min.js"></script>
-	<script src="./js/polyfill.min.js"></script>
+    <script src="./js/browser.min.js"></script>
+    <script src="./js/polyfill.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/chunk.css">
     <link rel="stylesheet" href="./css/header.css">
@@ -34,7 +34,8 @@
                     </ul>
                 </div>
                 <div class="headerSearchBox">
-                 <iframe style="width: 100%;height: 100%;border-radius: 8px;display: block;" scrolling="no" src="./loginStatus.html" frameborder="0"></iframe>
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;display: block;" scrolling="no"
+                        src="./loginStatus.html" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
@@ -55,7 +56,8 @@
 
                         <div class="noticeRight">
                             <ul class="marqueBox">
-                                <div class='marquee' style="width: 100%;overflow: hidden;" data-duration='5000' data-gap='10' data-duplicated='true'>
+                                <div class='marquee' style="width: 100%;overflow: hidden;" data-duration='5000'
+                                    data-gap='10' data-duplicated='true'>
                                     <span v-html="noticeText"></span>
                                 </div>
                             </ul>
@@ -124,7 +126,7 @@
                             <span style="font-size:20px;padding:0">010-123456</span>
                         </span>
                     </div>
-                    <div class="introduceBox">
+                    <div class="introduceBox" @click="gomemberFn">
                         <i class="iconfont">&#xe6cd;</i>
                         <span>成为会员</span>
                     </div>
@@ -308,13 +310,17 @@
                 goNotiveDetails(val) {
                     window.open(`notiveDetails.html?id=${val.id}`, '_blank');
                 },
-				//信息详情
-				goInfoDetails(item){
-					 window.open(`infoDetails.html?id=${item.id}&type=1`, '_blank');
-				},
+                //信息详情
+                goInfoDetails(item) {
+                    window.open(`infoDetails.html?id=${item.id}&type=1`, '_blank');
+                },
                 //公司介绍
                 goCompanyIntroduceFn() {
                     window.location.href = `companyIntroduce.html`;
+                },
+                //成为会员
+                gomemberFn() {
+                    window.location.href = `member.html`;
                 }
             }
         })

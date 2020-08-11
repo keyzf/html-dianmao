@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/browser.min.js"></script>
+    <script src="./js/polyfill.min.js"></script>
+    <link rel="stylesheet" href="./css/chunk.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/member.css">
+    <link rel="stylesheet" href="./css/element.css">
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/element.js"></script>
+    <title>成为会员</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="headerBox">
+                <div class="headerLogo">
+                    <img src="./img/logo.png" alt />
+                </div>
+                <div class="headerNavBox">
+                    <ul class="qfNavListBox">
+                        <li> <a href="./index.html" class="navList  active">首页</a> </li>
+                        <li> <a href="./information.html" class="navList ">信息汇总</a> </li>
+                        <li> <a href="./release.html" class="navList ">我要发布</a> </li>
+                        <li> <a href="./specialSeats.html" class="navList ">总共专席</a> </li>
+                    </ul>
+                </div>
+                <div class="headerSearchBox">
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html"
+                        frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- 内容 -->
+        <div class="memberBox">
+            <p
+                style="font-size: 18px;font-weight: 600;width: 100%;border-bottom:1px solid #ccc ;height: 40px;color: #282828;">
+                成为会员</p>
+            <div class="memberTop">
+                您还未开通会员，无法享受特权
+            </div>
+            <div class="privilegeBox">
+                <p style="color: #343434;font-size: 17px;font-weight: 600;padding-bottom: 10px;">会员特权</p>
+                <div style="font-size: 12px;padding:10px 0 ;display: flex;align-items: center;">
+                    <p><i class="iconfont" style="color: #237B63;font-size: 18px;">&#xe966;</i></p>
+                    <p style="padding-left: 20px;"><span>发布信息特权<br />会员免费发布信息</span></p>
+                </div>
+                <div style="font-size: 12px;padding:10px 0 ;display: flex;align-items: center;">
+                    <p><i class="iconfont" style="color: #237B63;font-size: 18px;">&#xe60f;</i></p>
+                    <p style="padding-left: 20px;"><span>发布信息特权<br />会员免费发布信息</span></p>
+                </div>
+                <div style="font-size: 12px;padding:10px 0 ;display: flex;align-items: center;">
+                    <p><i class="iconfont" style="color: #237B63;font-size: 18px;">&#xe684;</i></p>
+                    <p style="padding-left: 20px;"><span>发布信息特权<br />会员免费发布信息</span></p>
+                </div>
+            </div>
+            <div class="privilegeBox">
+                <p style="color: #343434;font-size: 17px;font-weight: 600;padding-bottom: 10px;">选择会员套餐</p>
+                <ul class="mealBox">
+                    <li class="mealList" :class="{mealListActive:item.status}" v-for="(item , index) in meals"
+                        :key="index" @click="selectMealFn(item)">
+                        {{item.content}}
+                    </li>
+                    <li style="width: 60%;line-height: 50px;font-size: 13px;color: #333333;font-weight: 600;">支付方式</li>
+                    <li class="ewmBox">
+                        <p><i class="iconfont" style="color:#237B63;font-size: 14px;">&#xe7b9;</i> <span
+                                style="padding-left: 15px;">扫码支付</span> </p>
+                        <div class="picBox">
+                            <div style="width: 100px;height: 100px;border: 1px solid #ccc;padding:10px ;">
+                                <img src="./img/ewm.png" style="width:100%;height: 100%;" alt="">
+                            </div>
+                            <p style="font-size: 8px;margin-top: 5px;"><i class="iconfont"
+                                    style="color:#237B63;font-size: 8px;">&#xe600;</i> <i class="iconfont"
+                                    style="color:#237B63;font-size: 8px;">&#xe669;</i><span
+                                    style="padding-left: 5px;">扫码支付更轻松</span> </p>
+                                  
+                        </div>
+                        <p class="moneyBox">支付金额：<span>{{moneyNumber}}</span>元</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerTop">
+                <span>联系我们</span>
+                <span>法律援助</span>
+            </div>
+            <div class="footetButtom">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State Grid Corporation of
+                China（SGCC）.All rights reserved</div>
+        </div>
+    </div>
+    <script type="text/babel">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    meals: [
+                        {
+                            index: 1,
+                            content: '开通青铜会员 20元（30天内有效）',
+                            number: 20,
+                            status: true,
+                        }, {
+                            index: 2,
+                            content: '开通白银会员 50元（100天内有效）',
+                            number: 50,
+                            status: false,
+
+                        }, {
+                            index: 3,
+                            content: '开通黄金会员 100（300天内有效）',
+                            number: 100,
+                            status: false,
+
+                        },
+                    ],
+                    moneyNumber:20
+                }
+            },
+
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+
+            },
+            methods: {
+                getQueryVariable(variable) {
+                    var query = window.location.search.substring(1);
+                    var vars = query.split("&");
+                    for (var i = 0; i < vars.length; i++) {
+                        var pair = vars[i].split("=");
+                        if (pair[0] == variable) { return pair[1]; }
+                    }
+                    return (false);
+                },
+                selectMealFn(item) {
+                    this.moneyNumber = item.number
+                    this.meals.forEach(val => {
+                        if (item.index == val.index) {
+                            val.status = true
+                        } else {
+                            val.status = false
+                        }
+                    })
+                }
+
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

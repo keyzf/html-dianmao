@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./js/browser.min.js"></script>
@@ -59,6 +60,7 @@
                 </div>
                 <div class="commentBox">
                     <div class="commentBoxLeft">
+                        <!-- 图片内容 -->
                         <ul class="picBox">
                             <li class="picList" v-for="(pic , index) in notiveInfo.pics" :key="index">
                                 <video :src="pic" controls="controls" v-if="pic.includes('mp4')"
@@ -66,6 +68,130 @@
                                 <img :src="pic" alt="" v-else>
 
                             </li>
+                        </ul>
+                        <!-- 评论信息 -->
+                        <p style="padding:18px 0;font-size:18px;font-weight: 600;position: relative;">评论 <span
+                                style="font-size: 8px;line-height: 10px;display: inline-block;position: absolute;">{{comment.number}}</span>
+                        </p>
+                        <!-- 提交评论 -->
+                        <div
+                            style="padding:16px;width:calc(100% - 32px);background:#fff; box-shadow:0px 0px 11px 0px rgba(236,236,236,1);">
+                            <div>
+                                <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 6}" placeholder="请输入内容"
+                                    v-model="comment.content">
+                                </el-input>
+                            </div>
+                            <div style="padding:16px;width:100%">
+                                <div
+                                    style="width:89px;
+                            height:25px;
+                            background:rgba(35,123,99,1);
+                            border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
+                                    发送评论</div>
+                            </div>
+                        </div>
+                        <!-- 历史评论记录 -->
+                        <ul
+                            style="padding:  16px;width: calc(100% - 32px);background-color: #fff;box-shadow:0px 0px 11px 0px rgba(236,236,236,1);">
+                            <li class="historyList" style=" border-bottom: 1px solid #C4C4C4;"
+                                v-for="(item,index) in history" :key="index">
+                                <div style="  display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 17px;">
+                                    <div class="historyPic">
+                                        <img :src="item.url" style="width: 100%;height: 100%;border-radius: 50%;"
+                                            alt="">
+                                    </div>
+                                    <div class="historyContent">
+                                        <p class="p1"><span>{{item.name}}</span><span
+                                                style="padding-left: 30px;color:#969696">发表于 {{item.date}}</span></p>
+                                        <p class="p1" style="padding: 5px 0;">{{item.content}}</p>
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <div style="display: flex;flex-direction: row;">
+                                                <div class="buttonBox" @click="inputFn(index)">
+                                                    回复
+                                                </div>
+                                                <div class="buttonBox" style="margin-left: 20px;"
+                                                    @click="reportFn(item)">
+                                                    举报
+                                                </div>
+                                            </div>
+                                            <div class="buttonBox" style="background-color: transparent;color: #000;"
+                                                @click="deleteFn(item)">删除
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inputBox"
+                                    style="width: calc(100% - 110px);margin-left: 70px;padding: 20px 0;"
+                                    v-show="inputStatus">
+                                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                                        placeholder="请输入评论内容" v-model="historyInput">
+                                    </el-input>
+                                    <div style="padding:16px;width:100%">
+                                        <div
+                                            style="width:89px;
+                                    height:25px;
+                                    background:rgba(35,123,99,1);
+                                    border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
+                                            发送评论</div>
+                                    </div>
+                                </div>
+                                <!-- 子评论 -->
+                                <ul
+                                    style="padding: 0 16px;width: calc(100% - 110px);background-color: #F4F4F4;margin-left: 70px;">
+                                    <li class="historyList" v-for="(val,index2) in item.ziHistorys" :key="index2">
+                                        <div style="  display: flex;justify-content: space-between;">
+                                            <div class="historyPic">
+                                                <img :src="val.url" style="width: 100%;height: 100%;border-radius: 50%;"
+                                                    alt="">
+                                            </div>
+                                            <div class="historyContent">
+                                                <p class="p1"><span>{{val.name}}</span><span
+                                                        style="padding-left: 30px;color:#969696">发表于 {{val.date}}</span>
+                                                </p>
+                                                <p class="p1" style="padding: 5px 0;">{{val.content}}</p>
+                                                <div style="display: flex;justify-content: space-between;">
+                                                    <div style="display: flex;flex-direction: row;">
+                                                        <div class="buttonBox" @click="inputFnZi(index2)">
+                                                            回复
+                                                        </div>
+                                                        <div class="buttonBox" style="margin-left: 20px;"
+                                                            @click="reportFn(val)">
+                                                            举报
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="buttonBox"
+                                                    style="background-color: transparent;color: #000;">删除
+                                                </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="inputBox"
+                                            style="width: calc(100% - 110px);margin-left: 70px;padding: 20px 0;"
+                                            v-show="inputStatusZi">
+                                            <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                                                placeholder="请输入评论内容" v-model="historyInput">
+                                            </el-input>
+                                            <div style="padding:16px;width:100%">
+                                                <div
+                                                    style="width:89px;
+                                            height:25px;
+                                            background:rgba(35,123,99,1);
+                                            border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
+                                                    发送评论</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <div class="paginationBox">
+                                <el-pagination @current-change="handleCurrentChange" background
+                                    :current-page.sync="listData.pageCurrent" :page-size="listData.pageSize"
+                                    :pager-count="5"
+                                    layout="prev, pager, next, jumper" :total="pageTotal"></el-pagination>
+                            </div>
                         </ul>
                     </div>
                     <div class="commentBoxRight">
@@ -85,24 +211,7 @@
                     </div>
 
                 </div>
-                <p style="padding:18px 0;font-size:18px;font-weight: 600;position: relative;">评论 <span
-                        style="font-size: 8px;line-height: 10px;display: inline-block;position: absolute;">{{comment.number}}</span>
-                </p>
-                <div style="padding:16px;width:572px;background:#fff; box-shadow:0px 0px 11px 0px rgba(236,236,236,1);">
-                    <div>
-                        <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 6}" placeholder="请输入内容"
-                            v-model="comment.content">
-                        </el-input>
-                    </div>
-                    <div style="padding:16px;width:572px">
-                        <div
-                            style="width:89px;
-                        height:25px;
-                        background:rgba(35,123,99,1);
-                        border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
-                            发送评论</div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="footer">
@@ -121,11 +230,18 @@
             data() {
                 return {
                     searchContent: '',
-                    listData: {
-                        id: ''
-                    },
+                   
                     tabType: '',
                     breadcrumbName: '',
+                    historyInput: '',
+                    inputStatus: false,  //评论弹出框
+                    inputStatusZi: false,
+                    listData: {
+                        id: '',
+                        pageSize: 2,
+                        pageCurrent: 1
+                    },
+                    pageTotal: null,
                     notiveInfo: {
                         id: 4,
                         pics: [
@@ -150,8 +266,139 @@
                     },
                     comment: {
                         content: '',
-                        number:106
-                    }
+                        number: 106
+                    },
+                    history: [],
+                    historys: [
+                        {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                }, {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                }, {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                            ]
+                        }, {
+                            name: '王先生',
+                            url: './img/1.png',
+                            date: '2020.08.11',
+                            content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                            ziHistorys: [
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                                {
+                                    name: '王先生',
+                                    url: './img/1.png',
+                                    date: '2020.08.11',
+                                    content: '这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论',
+                                },
+                            ]
+                        }
+                    ]
                 }
             },
 
@@ -167,8 +414,50 @@
                 } else {
                     this.breadcrumbName = '信息汇总'
                 }
+                this.history = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.historys)
+                this.pageTotal = this.historys.length
             },
             methods: {
+                inputFn(index) {
+                    this.inputStatus = !this.inputStatus
+                },
+                inputFnZi(index) {
+                    this.inputStatusZi = !this.inputStatusZi
+                },
+                reportFn(item) {
+                    this.$confirm('此操作将举报此条信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '举报成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消举报'
+                        });
+                    });
+                },
+                deleteFn(item) {
+                    this.$confirm('此操作将删除此条信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
                 //跳转页面
                 goPage() {
                     if (this.tabType == 1) {
@@ -176,6 +465,16 @@
                     } else {
                         window.location.href = 'information.html'
                     }
+                },
+
+                //分页
+                pagination(pageNo, pageSize, array) {
+                    var offset = (pageNo - 1) * pageSize;
+                    return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+                },
+                //切换页
+                handleCurrentChange(val) {
+                    this.history = this.pagination(val, this.listData.pageSize, this.historys)
                 },
                 //获取url参数
                 getQueryVariable(variable) {

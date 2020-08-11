@@ -249,16 +249,10 @@
             },
             mounted() {
                 this.notiveList = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.notiveLists)
+                this.pageTotal = this.notiveLists.length
             },
             methods: {
-                goSearch() {
-                    if (this.searchContent) {
-                        window.location.href = `searchPage.html?id=${this.searchContent}`;
-                    } else {
-                        this.$message.error('请输入所要搜索的信息！');
-                    }
-
-                },
+               
                 pagination(pageNo, pageSize, array) {
                     var offset = (pageNo - 1) * pageSize;
                     return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);

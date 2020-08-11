@@ -1,0 +1,70 @@
+.memberBox {
+    width: 890px;
+    padding: 20px 55px;
+    margin: 0 auto;
+    background-image: url('../img/contentBeijing.png');
+}
+
+.memberTop {
+    width: 100%;
+    text-align: center;
+    line-height: 70px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px 0px rgba(236, 236, 236, 1);
+    border-radius: 7px;
+    font-size: 19px;
+    margin-top: 30px;
+}
+
+.privilegeBox {
+    width: calc(100% - 60px);
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px 0px rgba(236, 236, 236, 1);
+    border-radius: 7px;
+    margin-top: 15px;
+}
+
+.mealBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mealList {
+    width: 340px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    color: #fff;
+    background: rgba(204, 204, 204, 1);
+    border-radius: 4px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+.mealListActive{
+    background-color: #237B63;
+}
+
+.ewmBox{
+    width:calc(60% - 36px);
+    padding: 18px;
+    border: 1px solid #EFEFEF;
+    display: flex;
+    flex-direction: row;
+}
+
+.ewmBox .picBox{
+    width: 120px;
+    margin-left: 40px;
+}
+.moneyBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 20px;
+}

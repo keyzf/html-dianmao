@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/browser.min.js"></script>
+    <script src="./js/polyfill.min.js"></script>
+    <link rel="stylesheet" href="./css/chunk.css">
+    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/element.css">
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/element.js"></script>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="register">
+            <div class="registerTop">
+                <div style=" display: flex;
+                flex-direction: row;
+                align-items: center;">
+                    <div class="logo">
+                        <img src="./img/logo.png" alt="">
+                    </div>
+                    <p class="p1">电猫网信息共享平台</p>
+                    <p class="p2">{{textSatus}}</p>
+                </div>
+                <div style="margin-right: 130px;font-size:16px; font-weight:300; color:rgba(59,119,100,1);">
+                    已有帐号, <span style="font-weight: 600;">立即登录</span>
+                </div>
+            </div>
+            <div class="registerContent">
+                
+            </div>
+            <div class="footer" style="width: 100%;">
+                <div class="footerTop" style="width: 100%;background-color: transparent;">
+                    <span>联系我们</span>
+                    <span>法律援助</span>
+                </div>
+                <div class="footetButtom" style="width: 100%;">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State
+                    Grid Corporation
+                    of
+                    China（SGCC）.All rights reserved</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script type="text/babel">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    textSatus: '用户注册'
+                };
+            },
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+
+            },
+            watch() {
+
+            },
+            methods: {
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

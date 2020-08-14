@@ -34,14 +34,15 @@
             </div>
             <div class="registerContent">
                 <!-- 用户登录 -->
-                <div class="content" v-if="boxStatus">
+                <div class="content">
                     <div class="contentTop">
-                        <p style="border-right: 1px solid #3B7764;" :class="{pActive:tabActive}" @click="switchTab">微信登录
+                        <p style="border-right: 1px solid #3B7764;" :class="{pActive:tabActive}" @click="switchTab(0)">
+                            微信登录
                         </p>
-                        <p @click="switchTab" :class="{pActive:!tabActive}">帐号登录</p>
+                        <p @click="switchTab(1)" :class="{pActive:!tabActive}">帐号登录</p>
                     </div>
                     <!-- 帐号登录 -->
-                    <div class="contentForm" v-if="!tabActive">
+                    <div class="contentForm" ref="contentForm">
                         <el-form :model="loginInfo" ref="loginInfo" :rules="rulesAccount">
                             <li class="textList">
                                 <div style="width: 24px;height: 24px;">
@@ -72,52 +73,25 @@
                             </li>
                         </el-form>
                         <li class="textList" style="border: none;margin-top: 0;">
-                            <div class="buttonBox">
+                            <div class="buttonBox" @click="loginFn('loginInfo')">
                                 登录
                             </div>
                         </li>
                         <li class="textList"
                             style="justify-content: space-between;border: none;color:#ccc;margin-top: 0;">
-                            <p style="cursor: pointer;">立即注册</p>
+                            <p style="cursor: pointer;" @click="goRegister">立即注册</p>
                             <p @click=" forgetPasswordFn" style="cursor: pointer;">忘记密码？</p>
                         </li>
                     </div>
                     <!-- 微信扫码 -->
-                    <div class="codeBox" v-else>
+                    <div class="codeBox" ref="codeBox">
                         <div class="code">
                             <img src="./img/ewm.png" alt="">
                         </div>
                         <p style="width: 100%;text-align: center;font-size: 16px;color: #000;">打开微信，扫码登陆</p>
                     </div>
                 </div>
-                <!-- 忘记密码 -->
-                <div class="content" v-else>
-                    <!-- 确认手机号 -->
-                    <div v-if="passwordType == 1"
-                        style="width: 100%;display: flex;flex-direction: column;justify-content: center;">
-                        <p style="width: 100%;text-align: center;font-size: 24px;color: #3B7764;">确认手机号</p>
-                        <el-form :model="loginInfo" ref="loginInfo" :rules="rulesAccount">
-                            <li class="textList">
-                                <div style="width: 24px;height: 24px;">
-                                    <img src="./img/accound.png" alt="">
-                                </div>
-                                <div class="selectBox">
-                                    <el-form-item prop="userName">
-                                        <el-input type="text" v-model="loginInfo.userName" autocomplete="off"
-                                            style="width: 270px;" placeholder="请输入手机号"></el-input>
-                                    </el-form-item>
-                                </div>
-                            </li>
 
-                            <li class="textList" style="border: none;">
-                                <div class="code" style="margin:0 auto">
-                                    <div id="captcha"></div>
-                                </div>
-                            </li>
-                        </el-form>
-                    </div>
-
-                </div>
 
             </div>
             <div class="footer" style="width: 100%;">
@@ -151,7 +125,6 @@
                             { required: true, message: '请输入密码', trigger: 'blur' },
                         ],
                     },
-                    boxStatus: true,  //登录忘记密码
                     passwordType: 1
                 };
             },
@@ -167,12 +140,39 @@
             },
             methods: {
                 //登陆方式
-                switchTab() {
+                switchTab(index) {
                     this.tabActive = !this.tabActive
+                    if (index == 0) {
+                        this.$refs.codeBox.style.display = 'block'
+                        this.$refs.contentForm.style.display = 'none'
+                    } else {
+                        this.$refs.codeBox.style.display = 'none'
+                        this.$refs.contentForm.style.display = 'block'
+                    }
+
                 },
                 // 忘记密码
                 forgetPasswordFn() {
-                    this.boxStatus = false
+                    window.location.href = "password.html"
+                },
+                //进入注册页面
+                goRegister() {
+                    window.location.href = "register.html"
+                },
+                //登录
+                loginFn(formName) {
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
+                            //登录方法成功后
+                            window.location.href = "index.html"
+                            $.cookie('token', '1234567890')
+                            $.cookie('vip', 'no')
+                            // this.$message.error('登录失败报错原因');
+                        } else {
+                            console.log('error submit!!');
+                            return false;
+                        }
+                    });
                 }
 
             }
@@ -181,7 +181,6 @@
     </script>
     <script src="./js/jigsaw.min.js" type="text/babel"></script>
     <script type="text/babel">
-
         var jigsaws = jigsaw.init({
             el: document.getElementById('captcha'),
             width: 400, // 可选, 默认310

@@ -21,7 +21,7 @@
     <div id="app">
         <div class="loginStatus">
             <p v-if="status">
-                <span style="cursor: pointer;">注册</span>
+                <span style="cursor: pointer;" @click="registerFn">注册</span>
                 <span>/</span>
                 <span style="cursor: pointer;" @click="loginFn">登录</span>
             </p>
@@ -70,9 +70,14 @@
                     }
 
                 },
+                //登陆页面
                 loginFn() {
                     // window.location.href = 'login.html'
                     window.open('login.html')
+                },
+                //注册页面
+                registerFn() {
+                    window.open('register.html')
                 }
             }
 

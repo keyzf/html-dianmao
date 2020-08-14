@@ -8,14 +8,14 @@
     <script src="./js/browser.min.js"></script>
     <script src="./js/polyfill.min.js"></script>
     <link rel="stylesheet" href="./css/chunk.css">
-    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/element.css">
     <script src="./js/vue.min.js"></script>
     <script src="./js/element.js"></script>
     <script src="./js/jquery-3.5.1.min.js"></script>
     <script src="./js/jquery.cookie.js"></script>
-    <title>Document</title>
+    <title>注册帐号</title>
 </head>
 
 <body>
@@ -32,24 +32,81 @@
                     <p class="p2">{{textSatus}}</p>
                 </div>
                 <div style="margin-right: 130px;font-size:16px; font-weight:300; color:rgba(59,119,100,1);">
-                    已有帐号, <span style="font-weight: 600;">立即登录</span>
+                    已有帐号, <span style="font-weight: 600;" @click="goLoginFn">立即登录</span>
                 </div>
             </div>
             <div class="registerContent">
-                
+                <div class="content">
+                    <div style="width: 100%;display: flex;flex-direction: column;justify-content: center;">
+                        <p style="width: 100%;text-align: center;font-size: 24px;color: #3B7764;">注册电猫网帐号</p>
+                        <el-form :model="registerInfo" ref="registerInfo" :rules="rulesAccount">
+                            <li class="textList">
+                                <div style="width: 24px;height: 24px;">
+                                    <img src="./img/accound.png" alt="">
+                                </div>
+                                <div class="selectBox">
+                                    <el-form-item prop="phone">
+                                        <el-input type="text" v-model="registerInfo.phone" autocomplete="off"
+                                            style="width: 270px;" placeholder="请输入手机号"></el-input>
+                                    </el-form-item>
+                                </div>
+                            </li>
+                            <li class="textList">
+                                <div style="width: 24px;height: 24px;">
+                                    <img src="./img/password.png" alt="">
+                                </div>
+                                <div class="selectBox">
+                                    <el-form-item prop="password">
+                                        <el-form-item prop="password">
+                                            <el-input type="text" v-model="registerInfo.password" autocomplete="off"
+                                                style="width: 270px;" placeholder="请输入密码" show-password></el-input>
+                                        </el-form-item>
+                                    </el-form-item>
+                                </div>
+                            </li>
+                            <li class="textList" style="width:380px;margin: 6% auto;">
+                                <div class="selectBox">
+                                    <el-form-item prop="code" style="width: 50%;float: left;">
+                                        <el-input type="text" v-model="registerInfo.code" autocomplete="off"
+                                            style="width: 220px;" placeholder="请输入验证码"></el-input>
+                                    </el-form-item>
+                                </div>
+                                <div style="float: right;">
+                                    <el-button type="primary"
+                                        style="margin-left:10px;float: right;background-color: #3B7764;border: none;"
+                                        v-show="show" @click="getCode">
+                                        获取验证码</el-button>
+                                    <el-button plain style="margin-left:10px;float: right;" v-show="!show" disabled>
+                                        ({{count}}) S重新获取</el-button>
+                                </div>
+                            </li>
+                        </el-form>
+                        <p style="font-size:14px;color:#999999;padding:10px 0;">注册账号即表示您已阅读并同意 <span
+                                style="color:#333333;cursor: pointer;" @click="dialogFn(1)">用户协议</span> 和 <span
+                                style="color:#333333;cursor: pointer;" @click="dialogFn(2)">隐私政策</span> </p>
+                        <li class="textList" style="border: none;margin-top: 0;">
+                            <div class="buttonBox" @click="registerFn('registerInfo')">
+                                注 册
+                            </div>
+                        </li>
+                    </div>
+                </div>
             </div>
             <div class="footer" style="width: 100%;">
                 <div class="footerTop" style="width: 100%;background-color: transparent;">
                     <span>联系我们</span>
                     <span>法律援助</span>
                 </div>
-                <div class="footetButtom" style="width: 100%;">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State
+                <div class="footetButtom" style="width: 100%;">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020
+                    State
                     Grid Corporation
                     of
                     China（SGCC）.All rights reserved</div>
             </div>
         </div>
-        
+        <el-dialog :title="dialog.title" :visible.sync="dialog.dialogVisible" width="60%" center>
+            <p v-html="dialog.content" style="padding: 20px;"></p>
+        </el-dialog>
     </div>
 
     <script type="text/babel">
@@ -57,7 +114,33 @@
             el: '#app',
             data() {
                 return {
-                    textSatus: '用户注册'
+                    textSatus: '用户注册',
+                    show: true,
+                    count: '',
+                    timer: null,
+                    registerInfo: {
+                        phone: '',   //手机号
+                        code: '',       //验证码
+                        password: '',  //新密码
+                    },
+                    rulesAccount: {
+                        phone: [
+                            { required: true, message: '请输入手机号', trigger: 'blur' },
+                        ], code: [
+                            { required: true, message: '请输入验证码', trigger: 'blur' },
+                        ], password: [
+                            { required: true, message: '请输入密码', trigger: 'blur' },
+                        ],
+
+
+                    },
+                    dialog: {
+                        dialogVisible: false,
+                        title: "",
+                        content: ''
+                    },
+                    agreement: '重要提示：<br/>请您仔细阅读以下条款，并确认您已完全理解本协议之规定，尤其是免除及限制责任的条款、知识产权条款、法律适用及争议解决条款。<br/>若您对本声明或本协议任何条款有异议，请停止注册或使用简书网（jianshu.com，包括手机、电脑等移动设备客户端，下同）所提供的全部服务。<br/>一、协议的接受、变更与补充<br/>1、勾选本协议前选项框并点击“注册”，将视为您签署了本协议，表明您自愿接受本协议全部条款的约束，本协议将构成您与上海佰集科技有限公司及其经营的“简书”平台（以下统称“简书”，包括相关关联方）之间具有约束力的法律文件。无论您是进入简书浏览网页，还是在简书上发布任何内容，或者是直接或通过各类方式（如站外API引用等）间接使用简书网服务和数据的行为，都将被视作已无条件接受本声明所涉全部内容。<br/>2、简书有权利对本协议进行修改，协议修改后，简书将通过在相关页面公告或发送通知等方式公布修改的内容，修改后的协议一经公布即有效的代替原协议。如果您不同意本协议的修改，请立即停止访问或使用本网站或取消已经获得的服务；如果您选择继续访问或使用本网站，则视为您已接受本协议的修改。<br/>3、签署的本协议所列明的条款，并不能完全涵盖您与简书之间所有的权利和义务。因此，简书不定期公布的其他声明、规则等均视为本协议之补充协议，为本协议不可分割的组成部分，与本协议具有同等法律效力。4、如本协议与简书平台其它协议条款不一致，以其它协议条款内容为准。',   //用户协议内容
+                    policy: ' 尊敬的电猫用户：我们对《电猫隐私政策》进行了更新。此版本《电猫隐私政策》的更新主要集中在向您明示您在电猫购物时所可能涉及的第三方SDK的情况。<br/>【特别提示】请仔细阅读《电猫隐私政策》（尤其是加粗或下划线的内容）并确定了解我们对您个人信息的处理规则。阅读过程中，如您有任何疑问，可通过《电猫隐私政策》中的联系方式咨询我们；如您不同意《电猫隐私政策》中的任何条款，您应立即停止访问或使用电猫。 ',    //隐私政策内容
                 };
             },
             computed: {},
@@ -71,7 +154,51 @@
 
             },
             methods: {
+                //登陆页面
+                goLoginFn(){
+                    window.location.href = "login.html"
+                },
+                //注册帐号
+                registerFn(formName) {
+                    this.$refs[formName].validate((valid) => {
+                        if (valid) {
 
+                        } else {
+                            return false;
+                        }
+                    });
+                },
+                //获取验证码
+                getCode() {
+                    var _this = this
+                    const TIME_COUNT = 60;
+                    if (!this.timer) {
+                        this.count = TIME_COUNT;
+                        this.show = false;
+                        this.timer = setInterval(() => {
+                            if (this.count > 0 && this.count <= TIME_COUNT) {
+                                this.count--;
+                            } else {
+                                this.show = true;
+                                clearInterval(this.timer);
+                                this.timer = null;
+                            }
+                        }, 1000)
+                    }
+                    //请求验证码方法
+                    this.registerInfo.code = '980712'   //假的验证码，要删除
+                },
+                //打开用户须知
+                dialogFn(index) {
+                    this.dialog.dialogVisible = true
+                    if (index == 1) {
+                        this.dialog.title = "用户协议"
+                        this.dialog.content = this.agreement
+                    } else {
+                        this.dialog.title = "隐私政策"
+                        this.dialog.content = this.policy
+                    }
+                }
             }
 
         })

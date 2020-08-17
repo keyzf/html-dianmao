@@ -1,0 +1,507 @@
+.personal {
+    width: 890px;
+    padding: 30px 55px;
+    margin: 0 auto;
+    background-image: url('../img/contentBeijing.png');
+    background-size: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.personal .personalLeft {
+    width: 122px;
+    padding: 0 16px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px 0px rgba(236, 236, 236, 1);
+    padding-bottom: 50px;
+}
+
+.personal .personalLeft .pTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(37, 37, 37, 1);
+    padding: 18px 0;
+    border-bottom: 1px solid #237B63;
+    text-align: center;
+}
+
+.personal .personalLeft .navBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.personal .personalLeft .navList {
+    font-size: 14px;
+    padding-top: 25px;
+    color: #3F3F3F;
+    text-align: center;
+    cursor: pointer;
+}
+
+.personal .personalRight {
+    padding: 0 16px;
+    width: 680px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px 0px rgba(236, 236, 236, 1);
+}
+
+.titleActive {
+    color: #237B63 !important;
+    font-weight: bold;
+}
+
+.personalRight .personalData {
+    width: 100%;
+    padding: 55px 0;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #237B63;
+    cursor: pointer;
+}
+
+.personalData .dataLeft {
+    width: 114px;
+    height: 114px;
+    border-radius: 50%;
+    border: 1px solid #237B63;
+    margin-left: 38px
+}
+
+.personalData .dataRight {
+    margin-left: 30px;
+
+}
+
+.dataRight .dataList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    padding: 14px 0;
+
+}
+
+.dataRight .span1 {
+    display: inline-block;
+    width: 78px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    background-color: #f55278;
+    color: #fff;
+    font-weight: 550;
+    border-radius: 3px;
+}
+
+.personalRelease {
+    width: 100%;
+}
+
+.authenticationTitle {
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+    background-color: #ccc;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.authenticationTitleActive {
+    background-color: #237B63;
+}
+
+.personalBox .infoBox {
+    margin-top: 20px;
+    padding: 24px 54px;
+    width: 570px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 11px 0px rgba(236, 236, 236, 1);
+    border-radius: 6px;
+}
+
+.personalBox .infoBox .infoList {
+    padding: 12px 0;
+    margin-top: 10px;
+}
+
+.infoBox .el-form-item {
+    margin: 0 !important;
+}
+
+.infoBox .el-input__inner {
+    border: none !important;
+    background: transparent !important;
+}
+
+.infoBox .el-upload--picture-card {
+    width: 232px !important;
+    height: 130px !important;
+    background: rgba(242, 242, 242, 1) !important;
+    border-radius: 4px !important;
+    border: none !important;
+}
+
+.infoBox .el-upload-list--picture-card .el-upload-list__item {
+    width: 232px !important;
+    height: 130px !important;
+}
+
+.personalAuthentication .buttonBox {
+    padding: 67px 0;
+    width: 100%;
+
+}
+
+.buttonBox .button {
+    margin: 0 auto;
+    width: 212px;
+    height: 48px;
+    background: rgba(35, 123, 99, 1);
+    border-radius: 4px;
+    line-height: 48px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+/* 我的发布 */
+.personalRelease {
+    /* position: relative; */
+}
+
+.personalRelease .changeBox {
+    /* position: absolute; */
+    background-color: #fff;
+    width: 100%;
+    /* top:80px;
+    left:0 */
+}
+
+.personalRelease .changeBox .pTitle {
+    font-size: 18px;
+    color: #3f3f3f;
+    margin-top: 20px
+}
+
+.personalRelease .changeBox .typeBox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.personalRelease .changeBox .typeBox1,
+.personalRelease .changeBox .typeBox {
+    width: 97%;
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 11px 0 #ececec;
+    box-shadow: 0 0 11px 0 #ececec
+}
+
+.personalRelease .changeBox .buttonBox {
+    width: 100%;
+    height: 48px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-bottom: 40px
+}
+
+.personalRelease .changeBox .buttonBox .button {
+    width: 212px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    background-color: #237b63;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 4px;
+    margin-top: 30px
+}
+
+/* 我的收藏 */
+.cillectione {}
+
+.cillectione .cillecttioneList {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #237B63;
+}
+
+.cillecttioneList .check {
+    width: 5%;
+}
+
+.cillecttioneList .collectionContent {
+    width: 85%;
+    /* background-color: #ccc; */
+
+}
+
+.cillecttioneList .deleteBox {
+    width: 10%;
+    cursor: pointer;
+}
+
+.cillecttioneList .collectionContent .noticeContentList {
+    width: 100%;
+    /* height: 80px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 30px */
+}
+
+.cillecttioneList .collectionContent .noticeContentList .p1 {
+    width: 70%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 60px;
+    cursor: pointer
+}
+
+.cillecttioneList .collectionContent .noticeContentList .p1:hover {
+    font-weight: 550
+}
+
+.cillecttioneList .collectionContent .noticeContentList .p2 {
+    width: 20%;
+    float: right;
+    line-height: 60px;
+    text-align: right
+}
+
+.cillecttioneList .collectionContent .noticeContentList .picBox {
+    width: 92px;
+    height: 80px;
+    border-radius: 8px;
+    float: left
+}
+
+.cillecttioneList .collectionContent .noticeContentList .picBox img {
+    width: 100%;
+    height: 100%
+}
+
+.cillecttioneList .collectionContent .noticeContentList .textBox {
+    height: 80px;
+    float: right;
+    margin-left: 13px;
+    width: calc(100% - 105px);
+    position: relative
+}
+
+.cillecttioneList .collectionContent .noticeContentList .textBox p {
+    font-size: 11px;
+    color: #000;
+    line-height: 18px
+}
+
+.cillecttioneList .collectionContent .noticeContentList .textBox p span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    cursor: pointer
+}
+
+.cillecttioneList .collectionContent .noticeContentList .textBox p span:hover {
+    font-weight: 550
+}
+
+.cillecttioneList .collectionContent .noticeContentList .textBox .operationBox {
+    width: 100%;
+    height: 24px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between
+}
+
+.cillecttioneList .collectionContent .operationLeft .buttonBox {
+    float: left;
+    width: 65px;
+    height: 24px;
+    font-size: 8px;
+    background-color: #237b63;
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    margin-right: 12px;
+    border-radius: 3px;
+    cursor: pointer
+}
+
+.cillecttioneList .collectionContent .operationright {
+    color: #666;
+    font-size: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.cillecttioneList .collectionContent .operationright span {
+    padding: 0 5px;
+    font-size: 8px
+}
+
+.cillecttioneList .collectionContent .operationright i {
+    font-size: 13px;
+    color: #237b63
+}
+
+/* 消息管理 */
+.newsBox {
+    width: 100%;
+}
+
+.newsBox .newsTab {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #237B63;
+}
+
+.newsTab .tabName {
+    font-size: 18px;
+    color: #3F3F3F;
+    padding: 0 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.newsTab .tabNameActive {
+    border-bottom: 2px solid #237B63;
+}
+
+.el-badge__content {
+    background-color: #237B63 !important;
+}
+
+.swithBox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.swithBox .swith {
+    font-size: 15px;
+    color: #000;
+    margin-right: 20px;
+    padding: 14px 0;
+    cursor: pointer;
+}
+
+.swithBox .swithActive {
+    color: #237B63;
+    font-weight: bold;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #237B63 !important;
+    border-color: #237B63 !important;
+}
+
+.commentBox {}
+
+.commentBox .commentList {
+    padding: 18px 0;
+    border-bottom: 1px dotted #237B63;
+}
+
+.commentListTop {
+    padding: 8px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.commentListTop .commentText{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    width: 80%;
+}
+.commentListTop .textBox {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+    font-size: 15px;
+    color:#000;
+}
+
+.phoneBox{
+    width: 100%;
+    
+}
+.phoneTop{
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 55px;
+}
+.phoneContent{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+.el-steps--horizontal{
+    margin-left: 20%;
+}
+
+.phoneContent .buttonBox{
+    background-color: #237b63;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 90px;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.el-form-item__content{
+    display: flex!important;
+}
+.el-button{
+    border-radius: 0!important;
+    margin: none;
+}

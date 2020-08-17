@@ -103,7 +103,7 @@
                         <p class="p-icon">
                             <i class="iconfont">&#xe60d;</i>
                             <span style="padding-left: 10px;">公告</span>
-                            <span style="font-size: 12px;padding-left: 150px;cursor: pointer;">查看更多>></span>
+                            <span style="font-size: 12px;padding-left: 150px;cursor: pointer;" @click="goNotiveList">查看更多>></span>
                         </p>
                         <ul class="noticeListBox">
                             <li class="noticeList" v-for="item in notiveRightList" :key="item.id"
@@ -305,6 +305,9 @@
                             element.isActive = false
                         }
                     });
+                },
+                goNotiveList(){
+                    window.open(`notiveList.html`, '_blank');
                 },
                 //查看公告详情
                 goNotiveDetails(val) {

@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/browser.min.js"></script>
+    <script src="./js/polyfill.min.js"></script>
+    <link rel="stylesheet" href="./css/chunk.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/personal.css">
+    <link rel="stylesheet" href="./css/element.css">
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/element.js"></script>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <title>个人中心</title>
+</head>
+<style>
+    .disUoloadSty .el-upload--picture-card {
+        display: none;
+        /* 上传按钮隐藏 */
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="headerBox">
+                <div class="headerLogo">
+                    <img src="./img/logo.png" alt />
+                </div>
+                <div class="headerNavBox">
+                    <ul class="qfNavListBox">
+                        <li> <a href="./index.html" class="navList ">首页</a> </li>
+                        <li> <a href="./information.html" class="navList">信息汇总</a> </li>
+                        <li> <a href="./release.html " class="navList">我要发布</a> </li>
+                        <li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
+                    </ul>
+                </div>
+                <div class="headerSearchBox">
+                    <iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html"
+                        frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- 内容 -->
+        <div class="personal">
+            <!-- 左边菜单 -->
+            <div class="personalLeft">
+                <ul>
+                    <li v-for="item  in navs" :key="item.index" style="margin-top: 20px;">
+                        <p class="pTitle">{{item.title}}</p>
+                        <ul class="navBox">
+                            <li class="navList" v-for="val  in item.navLists" :key="val.index"
+                                :class="{titleActive:val.isActive}" @click="switchNav(val.index)">
+                                {{val.title}}
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="personalRight">
+                <!-- 我的资料 -->
+                <div class="personalData" v-if="navNumber == 1">
+                    <div class="dataLeft">
+                        <img src="./img/1.png" style="width: 100%;height: 100%;border-radius: 50%;" alt="">
+                    </div>
+                    <ul class="dataRight">
+                        <li class="dataList">
+                            <p style="font-size:22px;font-weight: bold;"> {{info.loginName}}</p>
+                            <p style="margin-left:45px;font-size: 15px;">消息（<span
+                                    style="color:#237B63">{{info.number}}</span>）</p>
+                            <p style="margin-left:30px"><span class="span1">{{info.vipName}}</span> <span
+                                    style="font-size: 10px;cursor: pointer;" @click="goMemberFn">立即成为会员>>></span> </p>
+                        </li>
+                        <li class="dataList">
+                            <p style="font-size: 15px;font-weight: 600;">已绑定：{{info.phone}}</p>
+                            <p style="font-size: 10px;padding-left: 20px;" @click="switchNav(6)">去换邦>>></p>
+                        </li>
+                        <li class="dataList">
+                            <p style="font-size: 15px;font-weight: 600;">已认证:</p>
+                            <p style="font-size: 10px;padding-left: 20px;" @click="switchNav(4)">去认证>>></p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 我的发布 -->
+                <div class="personalRelease" v-else-if="navNumber == 2">
+                    <p style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;">我的发布</p>
+                    <div v-if="!changeStatus">
+                        <ul class="cillectione">
+                            <li class="cillecttioneList" v-for="(element , index2) in enterpriseData" :key="index2">
+                                <div class="check" style="width:3%">
+                                </div>
+                                <div class="collectionContent">
+                                    <div class="noticeContentList">
+                                        <div class="picBox">
+                                            <img :src="element.url" alt />
+                                        </div>
+                                        <div class="textBox">
+                                            <p @click="goInfoDetails(element)">
+                                                <span v-html="element.title">
+                                                    <a style="cursor: pointer;">查看详情</a>
+                                                </span>
+                                            </p>
+                                            <div class="operationBox">
+                                                <div class="operationLeft">
+                                                    <div class="buttonBox" v-show="element.button1">置顶</div>
+                                                    <div class="buttonBox" v-show="element.button2">造价涉及</div>
+                                                </div>
+                                                <div class="operationright">
+                                                    <span style="padding-right: 20px;" v-html="element.date"></span>
+                                                    <i class="iconfont">&#xe67b;</i>
+                                                    <span style="padding-right: 20px;">{{element.num1}}</span>
+                                                    <i class="el-icon-s-comment"></i>
+                                                    <span>{{element.num2}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="deleteBox">
+                                    <div style="margin-left: 8px;" class="textButton" @click="changeReleaseFn(element)">
+                                        修改</div>
+                                    <div style="margin-left: 8px;margin-top: 8px;" class="textButton"
+                                        @click="deleteReleaseFn(1,element)">
+                                        删除</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="paginationBox " style="margin-top: 30px;">
+                            <el-pagination @current-change="handleCurrentChange" background
+                                :current-page.sync="listData.pageCurrent" :page-size="listData.pageSize"
+                                :pager-count="5" layout="prev, pager, next, jumper" :total="pageTotal">
+                            </el-pagination>
+                        </div>
+
+                    </div>
+                    <div v-else-if="changeStatus" class="changeBox">
+                        <el-form :model="changeInfo" :rules="rules" ref="changeInfo" class="demo-ruleForm"
+                            label-position="left" label-width="100px">
+                            <p class="pTitle">填写资料</p>
+                            <div class="typeBox">
+                                <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 8}" placeholder="描述详情"
+                                    v-model="changeInfo.title">
+                                </el-input>
+                            </div>
+                            <p class="pTitle">添加视频或图片</p>
+                            <div class="typeBox1">
+                                <el-upload action="" list-type="picture-card" :on-change="beforeUpload"
+                                    :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove">
+                                    <i class="el-icon-plus"></i>
+                                </el-upload>
+                                <el-dialog :visible.sync="dialogVisible">
+                                    <img width="100%" :src="dialogImageUrl" alt="" v-if="fileTypeStatus">
+                                    <video :src="dialogImageUrl" controls="controls" v-else
+                                        style="width: 100%;height: 100%;" v-else></video>
+                                </el-dialog>
+                            </div>
+                            <el-form-item label="联系人" style="margin-top: 30px;">
+                                <el-input v-model="changeInfo.name"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系电话" style="margin-top: 30px;">
+                                <el-input v-model="changeInfo.phone"></el-input>
+                            </el-form-item>
+                            <el-form-item label="联系地址" style="margin-top: 30px;">
+                                <el-input v-model="changeInfo.dizhi"></el-input>
+                            </el-form-item>
+                        </el-form>
+                        <div class="buttonBox">
+                            <div class="button" @click="submitDataFn()">
+                                确认提交
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- 我的收藏 -->
+                <div class="personalCollection" v-else-if="navNumber == 3">
+                    <p style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;">我的收藏</p>
+                    <ul class="cillectione">
+                        <li class="cillecttioneList" v-for="(element , index2) in enterpriseData" :key="index2">
+                            <div class="check">
+                                <el-checkbox v-model="enterpriseInfo.checked"></el-checkbox>
+                            </div>
+                            <div class="collectionContent">
+                                <div class="noticeContentList">
+                                    <div class="picBox">
+                                        <img :src="element.url" alt />
+                                    </div>
+                                    <div class="textBox">
+                                        <p @click="goInfoDetails(element)">
+                                            <span v-html="element.title">
+                                                <a style="cursor: pointer;">查看详情</a>
+                                            </span>
+                                        </p>
+                                        <div class="operationBox">
+                                            <div class="operationLeft">
+                                                <div class="buttonBox" v-show="element.button1">置顶</div>
+                                                <div class="buttonBox" v-show="element.button2">造价涉及</div>
+                                            </div>
+                                            <div class="operationright">
+                                                <span style="padding-right: 20px;" v-html="element.date"></span>
+                                                <i class="iconfont">&#xe67b;</i>
+                                                <span style="padding-right: 20px;">{{element.num1}}</span>
+                                                <i class="el-icon-s-comment"></i>
+                                                <span>{{element.num2}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="deleteBox">
+                                <div style="margin-left: 8px;" class="textButton" @click="deleteReleaseFn(2,element)">
+                                    删除
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="paginationBox pageBox" style="margin-top: 30px;">
+                        <div class="selectAll pageBox">
+                            <el-checkbox v-model="enterpriseInfo.checked">全选</el-checkbox>
+                            <div class="textButton" style="margin-left: 20px;">删除选中项</div>
+                        </div>
+                        <el-pagination @current-change="handleCurrentChange" background
+                            :current-page.sync="listData.pageCurrent" :page-size="listData.pageSize" :pager-count="5"
+                            layout="prev, pager, next, jumper" :total="pageTotal">
+                        </el-pagination>
+                    </div>
+                </div>
+                <!-- 认证 -->
+                <div class="personalAuthentication" v-else-if="navNumber == 4">
+                    <ul style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;display: flex;
+                    flex-direction: row;">
+                        <li class="authenticationTitle" @click="switchAuthenticationFn(1)"
+                            :class='{authenticationTitleActive:switchAuthenticationStatus == 1}'>个人认证</li>
+                        <li class="authenticationTitle" @click="switchAuthenticationFn(2)"
+                            :class='{authenticationTitleActive:switchAuthenticationStatus == 2}'>企业认证</li>
+                    </ul>
+                    <!-- 个人认证 -->
+                    <div class="personalBox" v-if="switchAuthenticationStatus == 1">
+                        <el-form label-position="left" label-width="180px" :model="personalInfo" ref="personal">
+                            <ul class="infoBox">
+                                <li class="infoList" style="font-weight: bold;">基本资料</li>
+                                <li class="infoList" style="background-color: rgb(236, 236, 236);padding: 0 15px;">
+                                    <el-form-item label="姓名">
+                                        <el-input v-model="personalInfo.name" placeholder="请输入姓名"></el-input>
+                                    </el-form-item>
+                                </li>
+                                <li class="infoList" style="background-color: rgb(236, 236, 236);padding: 0 15px;">
+                                    <el-form-item label="身份证号">
+                                        <el-input v-model="personalInfo.number" placeholder="请输入身份证号"></el-input>
+                                    </el-form-item>
+                                </li>
+                            </ul>
+                            <ul class="infoBox">
+                                <li class="infoList" style="font-weight: bold;">身份证正反面照</li>
+                                <li class="infoList"
+                                    style="display: flex;flex-direction: row;justify-content: space-between;">
+                                    <div>
+                                        <el-upload :class="{uoloadSty:showBtnDealImg1,disUoloadSty:noneBtnDealImg1}"
+                                            ref="upload" action="" list-type="picture-card"
+                                            :on-change="(file,fileList)=>beforeUpload(1,file,fileList)"
+                                            :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                            :on-remove="(file,fileList)=>handleRemove(1,file,fileList)"
+                                            accept=".jpeg,.jpg,.png" :limit="1">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                        <p style="width: 100%;text-align: center;padding: 10px 0;">正面</p>
+                                    </div>
+                                    <div>
+                                        <el-upload :class="{uoloadSty:showBtnDealImg2,disUoloadSty:noneBtnDealImg2}"
+                                            action="" list-type="picture-card" ref="upload"
+                                            :on-change="(file,fileList)=>beforeUpload(2,file,fileList)"
+                                            :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                            :on-remove="(file,fileList)=>handleRemove(2,file,fileList)"
+                                            accept=".jpeg,.jpg,.png" :limit="1">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                        <p style="width: 100%;text-align: center;padding: 10px 0;">反面</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="buttonBox">
+                                <div class="button" @click="submitPersonalInfo">
+                                    提交
+                                </div>
+
+                            </div>
+                        </el-form>
+                    </div>
+                    <!-- 企业认证 -->
+                    <div class="personalBox" v-else-if="switchAuthenticationStatus == 2">
+                        <el-form label-position="left" label-width="180px" :model="enterpriseInfo" ref="enterprise">
+                            <ul class="infoBox">
+                                <li class="infoList" style="font-weight: bold;">基本资料</li>
+
+                                <li class="infoList" style="background-color: rgb(236, 236, 236);padding: 0 15px;">
+                                    <el-form-item label="姓名">
+                                        <el-input v-model="enterpriseInfo.name" placeholder="请输入姓名"></el-input>
+                                    </el-form-item>
+                                </li>
+                                <li class="infoList" style="background-color: rgb(236, 236, 236);padding: 0 15px;">
+                                    <el-form-item label="身份证号">
+                                        <el-input v-model="enterpriseInfo.number" placeholder="请输入身份证号"></el-input>
+                                    </el-form-item>
+                                </li>
+                                <li class="infoList" style="background-color: rgb(236, 236, 236);padding: 0 15px;">
+                                    <el-form-item label="企业名称">
+                                        <el-input v-model="enterpriseInfo.enterpriseName" placeholder="请输入企业名称">
+                                        </el-input>
+                                    </el-form-item>
+                                </li>
+
+                            </ul>
+                            <ul class="infoBox">
+                                <li class="infoList " style="font-weight: bold;">身份证正反面照</li>
+
+                                <li class="infoList"
+                                    style="display: flex;flex-direction: row;justify-content: space-between;">
+                                    <div>
+                                        <el-upload :class="{uoloadSty:showBtnDealImg3,disUoloadSty:noneBtnDealImg3}"
+                                            ref="upload" action="" list-type="picture-card"
+                                            :on-change="(file,fileList)=>beforeUploadFn(3,file,fileList)"
+                                            :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                            :on-remove="(file,fileList)=>handleRemoveFn(3,file,fileList)"
+                                            accept=".jpeg,.jpg,.png" :limit="1">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                        <p style="width: 100%;text-align: center;padding: 10px 0;">正面</p>
+                                    </div>
+                                    <div>
+                                        <el-upload :class="{uoloadSty:showBtnDealImg4,disUoloadSty:noneBtnDealImg4}"
+                                            ref="upload" action="" list-type="picture-card"
+                                            :on-change="(file,fileList)=>beforeUploadFn(4,file,fileList)"
+                                            :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                            :on-remove="(file,fileList)=>handleRemoveFn(4,file,fileList)"
+                                            accept=".jpeg,.jpg,.png" :limit="1">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                        <p style="width: 100%;text-align: center;padding: 10px 0;">反面</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="infoBox">
+                                <li class="infoList" style="font-weight: bold;">三证合一照</li>
+                                <li class="infoList"
+                                    style="display: flex;flex-direction: row;justify-content: space-between;">
+                                    <div>
+                                        <el-upload :class="{uoloadSty:showBtnDealImg5,disUoloadSty:noneBtnDealImg5}"
+                                            ref="upload" action="" list-type="picture-card"
+                                            :on-change="(file,fileList)=>beforeUploadFn(5,file,fileList)"
+                                            :auto-upload="false" :on-preview="handlePictureCardPreview"
+                                            :on-remove="(file,fileList)=>handleRemoveFn(5,file,fileList)"
+                                            accept=".jpeg,.jpg,.png" :limit="1">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                    </div>
+
+                                </li>
+                            </ul>
+                            <div class="buttonBox">
+                                <div class="button" @click="submitenterpriseInfo">
+                                    提交
+                                </div>
+
+                            </div>
+                        </el-form>
+                    </div>
+                </div>
+                <!-- 我的消息 -->
+                <div class="personalNews" v-else-if="navNumber == 5">
+                    <p style="padding:24px 0;font-size:15px;font-weight: 600;">消息管理</p>
+                    <div class="newsBox">
+                        <div class="newsTab">
+                            <el-badge :value="newsInfo.wholeNumber" class="item">
+                                <div class="tabName" :class="{tabNameActive:newsTbaStatus == 1}"
+                                    @click="swithNewsTab(1)">
+                                    系统信息
+                                </div>
+                            </el-badge>
+                            <el-badge :value="3" class="item" style="margin-left:40px">
+                                <div class="tabName" :class="{tabNameActive:newsTbaStatus == 2}"
+                                    @click="swithNewsTab(2)">
+                                    评论
+                                </div>
+                            </el-badge>
+                        </div>
+                    </div>
+                    <!-- 系统消息 -->
+                    <div v-if="newsTbaStatus == 1">
+                        <ul class="swithBox">
+                            <li class="swith" :class="{swithActive:tabSwithStatus ==2}" @click="swithNewsStatusFn(2)">
+                                全部（{{newsInfo.wholeNumber}}）</li>
+                            <li class="swith" @click="swithNewsStatusFn(1)" :class="{swithActive:tabSwithStatus ==1}">
+                                已读（{{newsInfo.readNumber}}）</li>
+                            <li class="swith" @click="swithNewsStatusFn(0)" :class="{swithActive:tabSwithStatus ==0}">
+                                未读（{{newsInfo.unreadNumber}}）</li>
+                        </ul>
+                        <div>
+                            <el-table :data="newData" style="width: 100%" @selection-change="handleSelectionChange">
+
+                                <el-table-column type="selection" width="55" align="center">
+                                </el-table-column>
+                                <el-table-column prop="status" label="状态" width="80" align="center"
+                                    show-overflow-tooltip>
+                                    <template slot-scope="scope">
+                                        <span v-if="scope.row.status == 0">未读</span>
+                                        <span v-else-if="scope.row.status == 1">已读</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="content" label="消息内容" align="center" show-overflow-tooltip>
+                                </el-table-column>
+                                <el-table-column prop="date" label="时间" width="180" align="center"
+                                    show-overflow-tooltip>
+                                </el-table-column>
+                                <el-table-column type="expand">
+                                    <template slot-scope="props">
+                                        <el-form label-position="left" inline class="demo-table-expand">
+                                            <el-form-item label="内容:">
+                                                <span>{{ props.row.content }}</span>
+                                            </el-form-item>
+                                            <el-form-item label="时间:">
+                                                <span>{{ props.row.date }}</span>
+                                            </el-form-item>
+                                        </el-form>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="address" label="操作" align="center" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button type="text" @click="deleteNewsFn(scope.row)">删除</el-button>
+                                    </template>
+                                </el-table-column>
+
+                            </el-table>
+                            <div class="paginationBox pageBox" style="margin-top: 30px;">
+                                <div class="selectAll pageBox">
+                                    <!-- <el-checkbox v-model="enterpriseInfo.checked" @click="handleSelectionChange">全选</el-checkbox> -->
+                                    <div class="textButton" style="margin-left: 20px;" @click="deleteAllFn">删除选中项</div>
+                                    <div class="textButton" style="margin-left: 20px;" @click="signAllFn">标记已读</div>
+                                </div>
+                                <el-pagination @current-change="handleCurrentChange" background
+                                    :current-page.sync="listData.pageCurrent" :page-size="listData.pageSize"
+                                    :pager-count="5" layout="prev, pager, next, jumper" :total="newsPageTotal">
+                                </el-pagination>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 评论 -->
+                    <div v-else-if="newsTbaStatus==2">
+                        <ul class="commentBox">
+                            <li class="commentList historyList2" v-for="(item,index) in commentData" :key="item.id">
+                                <div class="commentListTop">
+                                    <p class="commentText"><span>{{item.name}}: </span><span
+                                            class="textBox">{{item.content}}</span></p>
+                                    <p style="font-size: 10px;color:#666666">{{item.date}}</p>
+                                </div>
+                                <div class="commentListTop">
+                                    <p class="commentText" style="font-size: 12px;"><span style="color:#9F9F9F">回复我的发布:
+                                        </span>&nbsp;&nbsp;<span class="textBox"
+                                            style="font-size: 12px;">{{item.huifuContent}}</span></p>
+                                    <div style="display: flex;align-items: center;">
+                                        <el-button type="text" style="color:#237B63" @click="inputFnZi($event,index)">
+                                            回复</el-button>
+                                        <el-button type="text" style="color:#237B63" @click="deleteCommentFn(item)">删除
+                                        </el-button>
+                                    </div>
+                                </div>
+                                <div class="inputBox"
+                                    style="width: calc(100% - 110px);margin-left: 70px;padding: 20px 0;display: none;">
+                                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                                        placeholder="请输入评论内容" v-model="commentInfo.historyInput">
+                                    </el-input>
+                                    <div style="padding:16px;width:100%">
+                                        <div
+                                            style="width:89px;
+                                height:25px;
+                                background:rgba(35,123,99,1);
+                                border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;">
+                                            发送评论</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- 手机绑定 -->
+                <div class="personalBinding" v-else-if="navNumber == 6">
+                    <p style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;">手机绑定</p>
+                    <div class="phoneBox">
+                        <div class="phoneTop">
+                            <el-steps :space="200" :active="phoneInfo.phoneIndex" finish-status="success">
+                                <el-step title="验证身份"></el-step>
+                                <el-step title="验证码新手机号"></el-step>
+                                <el-step title="完成"></el-step>
+                            </el-steps>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 1">
+                            <p style="font-size: 15px;">已绑定的手机号：<span>{{phoneInfo.phone}}</span></p>
+                            <div style="display: flex;margin-top: 30px;">
+                                <el-form :model="phoneInfo" ref=" phoneInfo">
+                                    <div class="selectBox">
+                                        <el-form-item prop="code">
+                                            <el-input type="text" v-model="phoneInfo.code" autocomplete="off"
+                                                style="width: 100%;margin: 0 auto;" placeholder="请输入验证码">
+                                                <el-button slot="append" type="primary"
+                                                    style="background-color: #3B7764;color: #fff;" v-show="show"
+                                                    @click="getCode">
+                                                    获取验证码</el-button>
+                                                <el-button slot="append" plain v-show="!show" disabled
+                                                    style="margin-left: none;">
+                                                    ({{count}}) S重新获取</el-button>
+                                            </el-input>
+                                        </el-form-item>
+                                    </div>
+                                </el-form>
+                            </div>
+                            <div class="buttonBox" @click="nextFn(2)">
+                                下一步
+                            </div>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 2">
+                            <el-form :model="phoneInfo" ref="phoneInfo">
+                                <li class="textList">
+                                    <div class="selectBox">
+                                        <el-form-item prop="phone">
+                                            <el-input type="text" v-model="phoneInfo.phone" autocomplete="off"
+                                                style="width: 70%;margin: 0 auto;" placeholder="请输入手机号"></el-input>
+                                        </el-form-item>
+                                    </div>
+                                </li>
+                                <li class="textList" style="width:380px;margin: 6% auto;">
+                                    <div class="selectBox">
+                                        <el-form-item prop="code">
+                                            <el-input type="text" v-model="phoneInfo.code" autocomplete="off"
+                                                style="width: 70%;margin: 0 auto;" placeholder="请输入验证码">
+                                                <el-button slot="append" type="primary"
+                                                    style="background-color: #3B7764;color: #fff;" v-show="show"
+                                                    @click="getCode">
+                                                    获取验证码</el-button>
+                                                <el-button slot="append" plain v-show="!show" disabled>
+                                                    ({{count}}) S重新获取</el-button>
+                                            </el-input>
+                                        </el-form-item>
+                                    </div>
+
+                                </li>
+                            </el-form>
+                            <div class="buttonBox" @click="nextFn(3)">
+                                下一步
+                            </div>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 3">
+                            <div style="display: flex;margin-top: 30px;">
+                                <p style="font-size:15px;font-weight:600;">恭喜您，更换手机号成功</p>
+                            </div>
+                            <div class="buttonBox" @click="nextFn(1)">
+                                返回
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 密码重置 -->
+                <div class="personalReset" v-else-if="navNumber == 7">
+                    <p style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;">密码设置</p>
+                    <div class="phoneBox">
+                        <div class="phoneTop">
+                            <el-steps :space="200" :active="phoneInfo.phoneIndex" finish-status="success">
+                                <el-step title="身份验证"></el-step>
+                                <el-step title="设置新密码"></el-step>
+                                <el-step title="完成"></el-step>
+                            </el-steps>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 1">
+                            <p style="font-size: 15px;">已绑定的手机号：<span>{{phoneInfo.phone}}</span></p>
+                            <div style="display: flex;margin-top: 30px;">
+                                <el-form :model="phoneInfo" ref=" phoneInfo">
+                                    <div class="selectBox">
+                                        <el-form-item prop="code">
+                                            <el-input type="text" v-model="phoneInfo.code" autocomplete="off"
+                                                style="width: 100%;margin: 0 auto;" placeholder="请输入验证码">
+                                                <el-button slot="append" type="primary"
+                                                    style="background-color: #3B7764;color: #fff;" v-show="show"
+                                                    @click="getCode">
+                                                    获取验证码</el-button>
+                                                <el-button slot="append" plain v-show="!show" disabled
+                                                    style="margin-left: none;">
+                                                    ({{count}}) S重新获取</el-button>
+                                            </el-input>
+                                        </el-form-item>
+                                    </div>
+                                </el-form>
+                            </div>
+                            <div class="buttonBox" @click="nextFn(2)">
+                                下一步
+                            </div>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 2">
+                            <el-form :model="passwordInfo" ref="passwordInfo">
+                                <li class="textList" style="width:380px;margin: 6% auto;">
+
+                                    <div class="selectBox">
+                                        <el-form-item prop="newPassword">
+                                            <el-input type="password" v-model="passwordInfo.newPassword"
+                                                style="width: 340px;" autocomplete="off" show-password
+                                                placeholder="请输入新密码"></el-input>
+                                        </el-form-item>
+                                    </div>
+                                </li>
+                                <li class="textList" style="width:380px;margin: 6% auto;">
+
+                                    <div class="selectBox">
+                                        <el-form-item prop="passwordTwo">
+                                            <el-input type="password" v-model="passwordInfo.passwordTwo"
+                                                style="width: 340px;" autocomplete="off" show-password
+                                                placeholder="请确认新密码">
+                                            </el-input>
+                                        </el-form-item>
+                                    </div>
+                                </li>
+                            </el-form>
+                            <div class="buttonBox" @click="nextFn(3)">
+                                下一步
+                            </div>
+                        </div>
+                        <div class="phoneContent" v-if="phoneInfo.phoneIndex == 3">
+                            <div style="display: flex;margin-top: 30px;">
+                                <p style="font-size:15px;font-weight:600;">恭喜您，新密码设置成功</p>
+                            </div>
+                            <div class="buttonBox" @click="goLogin">
+                                立即登录
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 会员 -->
+                <div class="personalVip" v-else-if="navNumber == 8">
+                    <p style="padding:24px 0;font-size:15px;border-bottom:1px solid #237B63;font-weight: 600;">我的发布</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footerTop">
+                <span>联系我们</span>
+                <span>法律援助</span>
+            </div>
+            <div class="footetButtom">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State Grid Corporation of
+                China（SGCC）.All rights reserved</div>
+        </div>
+    </div>
+    <script type="text/babel">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    pageTotal: 0,
+                    // 我的发布
+                    changeStatus: false,
+                    fileTypeStatus: true,
+                    changeInfo: {},
+                    rules: {},
+                    // 我的收藏
+                    listData: {
+                        id: '',
+                        pageSize: 5,
+                        pageCurrent: 1
+                    },
+                    collectionInfo: {
+                        checked: ''
+                    },
+                    enterpriseData: [],
+                    enterpriseData1: [
+                        {
+                            id: 1,
+                            url: './img/1.png',
+                            title: ' 1河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 2,
+                            url: './img/1.png',
+                            title: ' 2河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: true,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 3,
+                            url: './img/1.png',
+                            title: ' 3河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 4,
+                            url: './img/1.png',
+                            title: ' 4河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 10,
+                            url: './img/1.png',
+                            title: ' 5河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 5,
+                            url: './img/1.png',
+                            title: ' 6河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 6,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 7,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 8,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        }, {
+                            id: 9,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                            name: '王先生',
+                            phone: '15066668888',
+                            dizhi: '上海市富力大厦'
+                        },
+                    ],
+                    switchAuthenticationStatus: 1,  //认证选中
+                    info: {    //个人资料
+                        loginName: '',
+                        number: 5,
+                        vipName: '普通用户',
+                        phone: 15066668888,
+                    },
+                    // 上传设置个人认证
+                    showBtnDealImg1: true,
+                    noneBtnDealImg1: false,
+                    showBtnDealImg2: true,
+                    noneBtnDealImg2: false,
+                    limitCountImg: 1,
+                    dialogVisible: false,   //查看图片
+                    dialogImageUrl: '',
+                    personalInfo: {
+                        name: '',
+                        number: '',
+                        positivePic: '',
+                        reversePic: '',
+                    },  //个人认证基本资料
+                    // 上传设置企业认证
+                    showBtnDealImg3: true,
+                    noneBtnDealImg3: false,
+                    showBtnDealImg4: true,
+                    noneBtnDealImg4: false,
+                    showBtnDealImg5: true,
+                    noneBtnDealImg5: false,
+                    enterpriseInfo: {
+                        name: '',
+                        number: '',
+                        enterpriseName: '',
+                        enterprisePositivePic: '',
+                        enterprisereversePic: '',
+                        enterprisePic: ''
+                    },
+                    dialogVisible: false,   //查看图片
+                    dialogImageUrl: '',
+                    // 我的信息
+                    newsTbaStatus: 1,
+                    newsPageTotal: null,
+                    newsInfo: {
+                        wholeNumber: null,
+                        readNumber: null,
+                        unreadNumber: null,
+                    },
+                    selectAll: [],
+                    tabSwithStatus: 2,
+                    newData: [],
+                    commentInfo: {},
+                    newData1: [
+                        {
+                            index: 1,
+                            status: 0,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        }, {
+                            index: 2,
+                            status: 1,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        }, {
+                            index: 3,
+                            status: 1,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        }, {
+                            index: 4,
+                            status: 0,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        }, {
+                            index: 5,
+                            status: 0,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        }, {
+                            index: 6,
+                            status: 1,
+                            content: '恭喜您，密码修改成功！',
+                            date: '2020-08-15',
+                        },
+                    ],
+                    commentData: [
+                        {
+                            id: 1,
+                            name: '王先生',
+                            content: '请问联系方式是多少，是否可以到公司看看情况',
+                            date: '2020-08-14',
+                            huifuContent: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁、跌落横担、引线横担'
+                        }, {
+                            id: 2,
+                            name: '王先生',
+                            content: '请问联系方式是多少，是否可以到公司看看情况',
+                            date: '2020-08-14',
+                            huifuContent: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁、跌落横担、引线横担'
+                        }, {
+                            id: 3,
+                            name: '王先生',
+                            content: '请问联系方式是多少，是否可以到公司看看情况',
+                            date: '2020-08-14',
+                            huifuContent: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁、跌落横担、引线横担'
+                        }, {
+                            id: 4,
+                            name: '王先生',
+                            content: '请问联系方式是多少，是否可以到公司看看情况',
+                            date: '2020-08-14',
+                            huifuContent: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁、跌落横担、引线横担'
+                        },
+                    ],
+
+                    navNumber: 1,
+                    //    手机绑定
+                    phoneInfo: {
+                        phone: '15066668888',
+                        code: '',
+                        newPhone: '',
+                        phoneIndex: 1,
+                    },
+                    passwordInfo: {},
+                    show: true,
+                    count: '',
+                    timer: null,
+                    navs: [
+                        {
+                            title: '个人中心',
+                            index: 1,
+                            navLists: [
+                                {
+                                    title: '我的资料',
+                                    isActive: true,
+                                    index: 1,
+                                }, {
+                                    title: '我的发布',
+                                    isActive: false,
+                                    index: 2,
+                                }, {
+                                    title: '我的收藏',
+                                    isActive: false,
+                                    index: 3,
+                                }, {
+                                    title: '认证',
+                                    isActive: false,
+                                    index: 4,
+                                }, {
+                                    title: '我的消息',
+                                    isActive: false,
+                                    index: 5,
+                                },
+                            ]
+                        }, {
+                            title: '账户设置',
+                            index: 2,
+                            navLists: [
+                                {
+                                    title: '手机绑定',
+                                    isActive: false,
+                                    index: 6,
+                                }, {
+                                    title: '密码设置',
+                                    isActive: false,
+                                    index: 7,
+                                },
+                            ]
+                        }, {
+                            title: '会员',
+                            index: 3,
+                            navLists: [
+                                {
+                                    title: '加入会员',
+                                    isActive: false,
+                                    index: 8,
+                                }
+                            ]
+                        }
+                    ]
+                };
+            },
+
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+                this.info.loginName = $.cookie('loginName')
+                //数据分页
+                this.enterpriseData = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.enterpriseData1)
+
+                //数据总条数
+                this.pageTotal = this.enterpriseData1.length
+                this.newsPageTotal = this.newData1.length
+            },
+            methods: {
+                //切换左边菜单
+                switchNav(index) {
+                    if (index == 8) {
+                        window.location.href = "member.html"
+                    }
+                    if (index == 2) {
+                        this.changeStatus = false
+                    }
+                    if (index == 5) {
+                        this.newData = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.newData1)
+                        this.newsInfo.wholeNumber = this.newData1.length
+                        this.newData1.forEach(val => {
+                            if (val.status == 0) {
+                                this.newsInfo.readNumber++
+                            } else if (val.status == 1) {
+                                this.newsInfo.unreadNumber++
+                            }
+                        })
+                    }
+                    this.navNumber = parseInt(index)
+                    this.navs.forEach(element => {
+                        element.navLists.forEach(item => {
+                            if (index == item.index) {
+                                item.isActive = true
+                            } else {
+                                item.isActive = false
+                            }
+                        })
+                    })
+                },
+                //切换认证
+                switchAuthenticationFn(index) {
+                    this.switchAuthenticationStatus = index
+                },
+                // 我的发布
+                // 查看详情
+                goInfoDetails(item) {
+                    window.location.href = `infoDetails.html?id=${item.id}&type=3`
+                },
+                // 修改信息
+                changeReleaseFn(item) {
+                    this.changeStatus = true
+                    this.changeInfo = item
+                },
+                //删除发布信息
+                deleteReleaseFn(index, item) {
+                    this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        if (index == 1) {
+                            //我的发布删除请求列表
+                        } else if (index == 2) {
+                            //我的收藏删除请求列表
+                        }
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                //提交修改信息
+                submitDataFn() {
+                    this.changeStatus = false
+                },
+                // 提交个人认证资料
+                submitPersonalInfo() {
+                    console.log(this.personalInfo)
+                },
+                // 提交企业认证资料
+                submitenterpriseInfo() {
+                    console.log(this.enterpriseInfo)
+                },
+                // 我的收藏
+                //分页
+                pagination(pageNo, pageSize, array) {
+                    var offset = (pageNo - 1) * pageSize;
+                    return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+                },
+                //切换页
+                handleCurrentChange(val) {
+                    this.enterpriseData = this.pagination(val, this.listData.pageSize, this.enterpriseData1)
+                    this.newData = this.pagination(val, this.listData.pageSize, this.newData1)
+                },
+                //我的信息
+                swithNewsTab(index) {
+                    this.newsTbaStatus = index
+                },
+                handleSelectionChange(val) {
+                    console.log(val, '885')
+                    this.selectAll = val
+                },
+
+                //删除单挑
+                deleteNewsFn(row) {
+                    this.$confirm('此操作将永久删除此信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                //删除选中
+                deleteAllFn() {
+                    this.$confirm('此操作将永久删除选中信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                    console.log(this.selectAll)
+                },
+                //标记已读
+                signAllFn() {
+                    console.log(this.selectAll)
+                },
+                swithNewsStatusFn(index) {
+                    this.tabSwithStatus = index
+                    this.newData = []
+                    this.newData1.forEach(val => {
+                        if (index == 2) {
+                            this.newData.push(val)
+                        } else if (index == 0) {
+                            if (val.status == 0) {
+                                this.newData.push(val)
+                            }
+                        } else if (index == 1) {
+                            if (val.status == 1) {
+                                this.newData.push(val)
+                            }
+                        }
+                    })
+                    this.newsPageTotal = this.newData.length
+                },
+                inputFnZi(e, index) {
+                    var el = $(e.target).parents("li.historyList2").children(".inputBox");
+                    if (el.css('display') == 'none') {
+                        el.show();
+                    } else {
+                        el.hide()
+                    }
+                },
+                // 删除评论回复
+                deleteCommentFn(val) {
+                    this.$confirm('此操作将永久删除选中信息, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    });
+                },
+                //手机换绑
+                getCode() {
+                    var _this = this
+                    const TIME_COUNT = 60;
+                    if (!this.timer) {
+                        this.count = TIME_COUNT;
+                        this.show = false;
+                        this.timer = setInterval(() => {
+                            if (this.count > 0 && this.count <= TIME_COUNT) {
+                                this.count--;
+                            } else {
+                                this.show = true;
+                                clearInterval(this.timer);
+                                this.timer = null;
+                            }
+                        }, 1000)
+                    }
+                    //请求验证码方法
+                    this.phoneInfo.code = '980712'   //假的验证码，要删除
+                },
+                nextFn(index) {
+                    this.phoneInfo.phoneIndex = index
+                },
+                //成为会员
+                goMemberFn() {
+                    window.location.href = "member.html"
+                },
+                //登录页
+                goLogin() {
+                    window.location.href = "login.html"
+                },
+                //删除上传内容
+                handleRemove(index, files, fileList) {
+                    var _this = this
+                    const fd = new FormData();
+                    if (index == 1) {
+                        this.noneBtnDealImg1 = fileList.length >= this.limitCountImg;
+
+                    } else if (index == 2) {
+                        this.noneBtnDealImg2 = fileList.length >= this.limitCountImg;
+                    }
+                },
+
+                //上传内容
+                beforeUpload(index, file, fileList) {
+                    const fd = new FormData();
+                    console.log(index)
+                    if (index == 1) {
+                        this.noneBtnDealImg1 = fileList.length >= this.limitCountImg;
+                        this.personalInfo.positivePic = file.raw
+                    } else if (index == 2) {
+                        this.noneBtnDealImg2 = fileList.length >= this.limitCountImg;
+                        this.personalInfo.reversePic = file.raw
+                    }
+                    console.log(this.personalInfo)
+                    // this.personalInfo.files.push(fd)
+                },
+                //删除上传内容
+                handleRemoveFn(index, files, fileList) {
+                    var _this = this
+                    const fd = new FormData();
+                    if (index == 3) {
+                        this.noneBtnDealImg3 = fileList.length >= this.limitCountImg;
+                    } else if (index == 4) {
+                        this.noneBtnDealImg4 = fileList.length >= this.limitCountImg;
+                    } else if (index == 5) {
+                        this.noneBtnDealImg5 = fileList.length >= this.limitCountImg;
+                    }
+
+                },
+
+                //上传内容
+                beforeUploadFn(index, file, fileList) {
+                    const fd = new FormData();
+                    console.log(index)
+                    if (index == 3) {
+                        this.noneBtnDealImg3 = fileList.length >= this.limitCountImg;
+                        this.enterpriseInfo.enterprisePositivePic = file.raw
+                    } else if (index == 4) {
+                        this.noneBtnDealImg4 = fileList.length >= this.limitCountImg;
+                        this.enterpriseInfo.enterprisereversePic = file.raw
+                    } else if (index == 5) {
+                        this.noneBtnDealImg5 = fileList.length >= this.limitCountImg;
+                        this.enterpriseInfo.enterprisePic = file.raw
+                    }
+                    // this.personalInfo.files.push(fd)
+                },
+                //预览上传内容
+                handlePictureCardPreview(file) {
+                    this.dialogImageUrl = file.url;
+                    this.dialogVisible = true;
+                },
+            }
+
+        })
+    </script>
+</body>
+
+</html>

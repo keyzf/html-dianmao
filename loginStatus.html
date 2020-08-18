@@ -27,7 +27,7 @@
             </p>
             <p v-else>
                 <span>欢迎您：</span>
-                <span>andy</span>
+                <span @click="goPersonalFn" style="cursor: pointer;">andy</span>
             </p>
             <div class="inputBox">
                 <el-input placeholder="输入关键字" v-model="searchContent">
@@ -78,6 +78,9 @@
                 //注册页面
                 registerFn() {
                     window.open('register.html')
+                },
+                goPersonalFn(){
+                    window.open("personal.html")
                 }
             }
 

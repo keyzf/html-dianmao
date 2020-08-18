@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="./js/browser.min.js"></script>
+		<script src="./js/polyfill.min.js"></script>
+		<link rel="stylesheet" href="./css/chunk.css">
+		<link rel="stylesheet" href="./css/header.css">
+		<link rel="stylesheet" href="./css/information.css">
+		<link rel="stylesheet" href="./css/element.css">
+		<script src="./js/vue.min.js"></script>
+		<script src="./js/element.js"></script>
+		<title>公告列表</title>
+	</head>
+
+	<body>
+		<div id="app">
+			<!-- 头部 -->
+			<div class="header">
+				<div class="headerBox">
+					<div class="headerLogo">
+						<img src="./img/logo.png" alt />
+					</div>
+					<div class="headerNavBox">
+						<ul class="qfNavListBox">
+							<li> <a href="./index.html" class="navList active">首页</a> </li>
+							<li> <a href="./information.html" class="navList">信息汇总</a> </li>
+							<li> <a href="./release.html" class="navList">我要发布</a> </li>
+							<li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
+						</ul>
+					</div>
+					<div class="headerSearchBox">
+						<iframe style="width: 100%;height: 100%;border-radius: 8px;" scrolling="no" src="./loginStatus.html" frameborder="0"></iframe>
+					</div>
+				</div>
+			</div>
+			<!-- 内容 -->
+			<div class="information">
+				<div class="informationBox">
+				
+					<div class="contentBox">
+						<ul class="notiveContentBox">
+							<li  class="noticeContentList" style="height:60px" v-for="(val , index3) in notiveList" :key="index3" @click="goNotiveDetails(val)">
+								<p class="p1" v-html="val.title"></p> 
+								<p class="p2" v-html="val.date"></p>
+							</li>
+						</ul>
+						<div class="paginationBox">
+							<el-pagination @current-change="handleCurrentChange" background :current-page.sync="listData.pageCurrent"
+							 :page-size="listData.pageSize" layout="prev, pager, next, jumper" :total="pageTotal"></el-pagination>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="footer">
+				<div class="footerTop">
+					<span>联系我们</span>
+					<span>法律援助</span>
+				</div>
+				<div class="footetButtom">电猫网信息共享平台 http://dianmao.com 版权所有 Copyright @ 2003-2020 State Grid Corporation of
+					China（SGCC）.All rights reserved</div>
+			</div>
+		</div>
+		<script type="text/babel">
+			new Vue({
+            el: '#app',
+            data() {
+                return {
+                    searchContent: '',
+                    //请求信息
+                    listData: {
+                        title: '',
+                        pageSize: 4,
+                        pageCurrent: 1
+                    },
+                    notiveList: [],
+                    pageTotal: 10,
+                    notiveLists: [
+                        {
+                            id: 1,
+                            url: './img/1.png',
+                            title: ' 1河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 2,
+                            url: './img/1.png',
+                            title: ' 2河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: true,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 3,
+                            url: './img/1.png',
+                            title: ' 3河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 4,
+                            url: './img/1.png',
+                            title: ' 4河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 10,
+                            url: './img/1.png',
+                            title: ' 5河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 5,
+                            url: './img/1.png',
+                            title: ' 6河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 6,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 7,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 8,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        }, {
+                            id: 9,
+                            url: './img/1.png',
+                            title: ' 河北工厂主营：横担、拉线棒、抱箍、加强抱箍、扁铁抱箍、杆顶头、杆顶帽、跌落横担、引线横担、避雷横担、曲拉板、拉线抱箍、槽钢抬架、接地极组合横担、接地扁铁等各种10KV 35KV 220KV电力铁附件, U型抱箍、带孔螺栓等电力铁附件,需要请联系.......',
+                            button1: false,
+                            button2: true,
+                            date: '2020-07-26 09:32:56',
+                            num1: 2654,
+                            num2: 3456,
+                        },
+                    ],
+                    boxStatus: true
+                }
+            },
+
+            computed: {},
+            creted() { },
+            components: {
+            },
+            mounted() {
+                this.notiveList = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.notiveLists)
+                this.pageTotal = this.notiveLists.length
+            },
+            methods: {
+               
+                pagination(pageNo, pageSize, array) {
+                    var offset = (pageNo - 1) * pageSize;
+                    return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+                },
+				//信息详情
+				goNotiveDetails(item){
+					 window.open(`notiveDetails.html?id=${item.id}&type=2`, '_blank');
+				},
+                //切换页
+                handleCurrentChange(val) {
+                    this.notiveList = this.pagination(val, this.listData.pageSize, this.notiveLists)
+                },
+                //切换tab
+                switchTitleFn(item) {
+                    this.notiveTitles.forEach(element => {
+                        if (item.index == element.index) {
+                            element.isActive = true
+                        } else {
+                            element.isActive = false
+                        }
+                    });
+                   
+                },
+            }
+
+        })
+    </script>
+	</body>
+
+</html>

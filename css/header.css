@@ -9,7 +9,7 @@ a {
     background-size: auto 100%;
 }
 
-.headerBox {
+.header .headerBox {
     width: 1000px;
     height: 90px;
     margin: 0 auto;
@@ -18,23 +18,23 @@ a {
     align-items: center;
 }
 
-.headerLogo {
+.header .headerBox .headerLogo {
     width: 140px;
     height: 50px;
     margin-left: 28px;
 }
 
-.headerLogo img {
+.header .headerBox .headerLogo img {
     width: 100%;
     height: 100%;
 }
 
-.headerNavBox {
+.header .headerBox .headerNavBox {
     width: auto;
     line-height: 90px;
 }
 
-.qfNavListBox {
+.header .headerBox .qfNavListBox {
     margin-left: 60px;
     display: flex;
     flex-direction: row;
@@ -42,7 +42,7 @@ a {
     line-height: 50px;
 }
 
-.navList {
+.header .headerBox .navList {
     display: inline-block;
     margin: 0 20px;
     font-weight: 600;
@@ -92,16 +92,18 @@ a {
 
 .headerSearchBox .el-input__inner {
     height: 30px !important;
-	line-height: 30px!important;
+    line-height: 30px !important;
     font-size: 8px !important;
 }
-.loginStatus{
+
+.loginStatus {
     width: 100%;
     height: 33px;
     display: flex;
     align-items: center;
 }
- .loginStatus p {
+
+.loginStatus p {
     font-size: 12px;
     font-family: Microsoft YaHei;
     font-weight: 400;
@@ -129,7 +131,7 @@ a {
 .loginStatus .el-input__inner {
     height: 30px !important;
     font-size: 8px !important;
-	line-height: 30px!important;
+    line-height: 30px !important;
 }
 
 .footer {
@@ -161,3 +163,43 @@ a {
     color: rgba(4, 101, 97, 1);
     background: #9eccc8;
 }
+
+.paginationBox {
+    height: 40px;
+}
+
+.paginationBox .el-pagination {
+    float: right
+}
+
+.paginationBox .active {
+    background-color: #237b63 !important
+}
+
+.pageBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.textButton{
+    height: 22px;
+    padding: 3px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    background-color: #237b63;
+    border-radius: 2px;
+    cursor: pointer;
+}
+/* .buttonBox{
+    background-color: #237b63;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 90px;
+    border-radius: 4px;
+    margin-top: 20px;
+} */

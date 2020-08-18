@@ -29,7 +29,7 @@
                 <div class="headerNavBox">
                     <ul class="qfNavListBox">
                         <li> <a href="./index.html" class="navList  " :class="{active:tabType == 1}">首页</a> </li>
-                        <li> <a href="./information.html" class="navList " :class="{active:tabType != 1}">信息汇总</a> </li>
+                        <li> <a href="./information.html" class="navList " :class="{active:tabType == 2}">信息汇总</a> </li>
                         <li> <a href="./release.html" class="navList">我要发布</a> </li>
                         <li> <a href="./specialSeats.html" class="navList">总共专席</a> </li>
                     </ul>
@@ -66,7 +66,7 @@
                         <ul class="picBox">
                             <li class="picList" v-for="(pic , index) in notiveInfo.pics" :key="index">
                                 <video :src="pic" controls="controls" v-if="pic.includes('mp4')"
-                                    style="width: 100%;height: 100%;"></video>
+                                    style="width: 100%;height: 100%;border-radius: 6px;"></video>
                                 <img :src="pic" alt="" v-else>
 
                             </li>
@@ -84,11 +84,11 @@
                                 </el-input>
                             </div>
                             <div style="padding:16px;width:100%">
-                                <div
-                                    style="width:89px;
+                                <div style="width:89px;
                             height:25px;
                             background:rgba(35,123,99,1);
-                            border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;"  @click="publish">
+                            border-radius:2px;text-align: center;line-height: 25px;color: #fff;font-size: 11px;float: right;margin-right: 16px;cursor: pointer;"
+                                    @click="publish">
                                     发送评论</div>
                             </div>
                         </div>
@@ -453,8 +453,10 @@
                 this.tabType = this.getQueryVariable('type')
                 if (this.tabType == 1) {
                     this.breadcrumbName = '首页'
-                } else {
+                } else if (this.tabType == 2) {
                     this.breadcrumbName = '信息汇总'
+                } else if (this.tabType == 3) {
+                    this.breadcrumbName = '个人中心'
                 }
                 //数据分页
                 this.history = this.pagination(this.listData.pageCurrent, this.listData.pageSize, this.historys)
@@ -549,8 +551,10 @@
                 goPage() {
                     if (this.tabType == 1) {
                         window.location.href = 'index.html'
-                    } else {
+                    } else  if (this.tabType == 2)  {
                         window.location.href = 'information.html'
+                    } else  if (this.tabType == 3)  {
+                        window.location.href = 'personal.html'
                     }
                 },
 

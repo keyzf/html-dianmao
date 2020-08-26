@@ -32,7 +32,14 @@
     flex-direction: column;
     align-items: center;
 }
-
+.wxBox{
+    padding: 10px;
+    cursor: pointer;
+}
+.wxBoxActive{
+    box-shadow: 0 0 10px #ccc;
+    padding: 10px;
+}
 .mealList {
     width: 340px;
     height: 28px;

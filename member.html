@@ -69,17 +69,26 @@
                     </li>
                     <li style="width: 60%;line-height: 50px;font-size: 13px;color: #333333;font-weight: 600;">支付方式</li>
                     <li class="ewmBox">
-                        <p><i class="iconfont" style="color:#237B63;font-size: 14px;">&#xe7b9;</i> <span
-                                style="padding-left: 15px;">扫码支付</span> </p>
+                        <div>
+                            <p class="wxBox" :class='{wxBoxActive:paymentStatus==1}' @click="switchPayment(1)"><i class="iconfont" style="color:#237B63;font-size: 14px;">&#xe600;</i>
+                                <span style="padding-left: 15px;">支付宝支付</span> </p>
+                            <p class="wxBox" :class='{wxBoxActive:paymentStatus==2}' @click="switchPayment(2)"><i class="iconfont"
+                                    style="color:#237B63;font-size: 14px;">&#xe669;</i> <span
+                                    style="padding-left: 15px;">微信支付</span> </p>
+                        </div>
+
                         <div class="picBox">
-                            <div style="width: 100px;height: 100px;border: 1px solid #ccc;padding:10px ;">
+                            <div style="width: 100px;height: 100px;border: 1px solid #ccc;padding:10px ;" v-if="paymentStatus == 1">
                                 <img src="./img/ewm.png" style="width:100%;height: 100%;" alt="">
                             </div>
-                            <p style="font-size: 8px;margin-top: 5px;"><i class="iconfont"
+                            <div style="width: 100px;height: 100px;border: 1px solid #ccc;padding:10px ;" v-else-if="paymentStatus == 2">
+                                <img src="./img/banner1.jpg" style="width:100%;height: 100%;" alt="">
+                            </div>
+                            <!-- <p style="font-size: 8px;margin-top: 5px;"><i class="iconfont"
                                     style="color:#237B63;font-size: 8px;">&#xe600;</i> <i class="iconfont"
                                     style="color:#237B63;font-size: 8px;">&#xe669;</i><span
-                                    style="padding-left: 5px;">扫码支付更轻松</span> </p>
-                                  
+                                    style="padding-left: 5px;">扫码支付更轻松</span> </p> -->
+
                         </div>
                         <p class="moneyBox">支付金额：<span>{{moneyNumber}}</span>元</p>
                     </li>
@@ -121,7 +130,8 @@
 
                         },
                     ],
-                    moneyNumber:20
+                    paymentStatus:1,
+                    moneyNumber: 20
                 }
             },
 
@@ -151,6 +161,9 @@
                             val.status = false
                         }
                     })
+                },
+                switchPayment(index){
+                    this.paymentStatus = index
                 }
 
 
